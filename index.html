@@ -37,7 +37,126 @@
                     <i class="fas fa-bullseye icon"></i>
                     <h2>My personal information </h2>
                     <p>I want to keep learning about TKJ (Computer and Network Engineering)</p>
-                    <p>My dream is to become a Security Specialist at Telkomsel Cirebon for now i want to focus Study </p>
+                    <p>My dream is to become a Security Specialist at Telkomsel Cirebon for now i want to focus Study 
+                    Ayoo kirimin saya pesan anonim 🤗👇🏻
+                    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tombol Animasi Oranye</title>
+    <style>
+        /* Reset dasar */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        /* Style tombol oranye */
+        .orange-btn {
+            position: relative;
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(45deg, #FF8C00, #FF6B00);
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.4);
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        /* Efek hover */
+        .orange-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.6);
+        }
+
+        /* Animasi hover */
+        .orange-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #FF6B00, #FF4500);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+            border-radius: 50px;
+        }
+
+        .orange-btn:hover::before {
+            opacity: 1;
+        }
+
+        /* Efek ripple saat diklik */
+        .orange-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+
+        .orange-btn:focus:not(:active)::after {
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+
+        /* Efek aktif (saat diklik) */
+        .orange-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 10px rgba(255, 107, 0, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="button-container">
+        <!-- Tombol dengan link -->
+        <a href="https://ngl.link/cardi17968" class="orange-btn">
+            Klik Disini
+        </a>
+        
+        <!-- Alternatif jika ingin menggunakan button element -->
+        <!-- <button class="orange-btn" onclick="window.location.href='https://contohlink.com'">
+            Klik Disini
+        </button> -->
+    </div>
+</body>
+</html></p>
                 </div>
             </section>
 
