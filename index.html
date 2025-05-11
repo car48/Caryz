@@ -14,6 +14,220 @@
             <div class="divider animate-grow"></div>
         </header>
 
+        <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jam Digital Keren</title>
+    <style>
+        /* Gaya Dasar untuk Jam Digital */
+        .digital-clock-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: inline-block;
+            position: relative;
+            margin: 20px;
+        }
+        
+        .digital-clock {
+            background: linear-gradient(145deg, #1e1e2f, #2a2a3a);
+            border-radius: 16px;
+            padding: 25px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        inset 0 0 10px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .digital-clock::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0) 60%
+            );
+            transform: rotate(30deg);
+            animation: shine 6s infinite;
+        }
+        
+        .time {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .time-segment {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 0 15px;
+            margin: 0 5px;
+            position: relative;
+            min-width: 80px;
+            text-align: center;
+        }
+        
+        .time-segment::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-50%);
+        }
+        
+        .colon {
+            animation: blink 1s infinite;
+            margin: 0 5px;
+            position: relative;
+            top: -5px;
+        }
+        
+        .date {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 1px;
+        }
+        
+        .ampm {
+            font-size: 1.5rem;
+            margin-left: 10px;
+            align-self: flex-end;
+            color: #00a8ff;
+            text-shadow: 0 0 5px rgba(0, 168, 255, 0.5);
+        }
+        
+        /* Animasi */
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translate(-30%, -30%); }
+            100% { transform: rotate(30deg) translate(30%, 30%); }
+        }
+        
+        /* Efek Hover */
+        .digital-clock:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        /* Responsif */
+        @media (max-width: 768px) {
+            .time {
+                font-size: 3rem;
+            }
+            .time-segment {
+                min-width: 60px;
+                padding: 0 10px;
+            }
+            .ampm {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .time {
+                font-size: 2rem;
+            }
+            .time-segment {
+                min-width: 40px;
+                padding: 0 5px;
+                margin: 0 2px;
+            }
+            .colon {
+                margin: 0 2px;
+            }
+            .date {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="digital-clock-container">
+        <div class="digital-clock">
+            <div class="time">
+                <div class="time-segment" id="hours">12</div>
+                <div class="colon">:</div>
+                <div class="time-segment" id="minutes">59</div>
+                <div class="colon">:</div>
+                <div class="time-segment" id="seconds">45</div>
+                <div class="ampm" id="ampm">PM</div>
+            </div>
+            <div class="date" id="date">Selasa, 28 Mei 2024</div>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk mengupdate jam
+        function updateClock() {
+            const now = new Date();
+            
+            // Format waktu
+            let hours = now.getHours();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // Jam 0 menjadi 12
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            
+            // Format tanggal
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = now.toLocaleDateString('id-ID', options);
+            
+            // Update DOM
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+            document.getElementById('ampm').textContent = ampm;
+            document.getElementById('date').textContent = date;
+        }
+        
+        // Panggil fungsi updateClock setiap detik
+        setInterval(updateClock, 1000);
+        updateClock(); // Panggil sekali di awal
+        
+        // Efek hover dinamis
+        const clock = document.querySelector('.digital-clock');
+        clock.addEventListener('mousemove', (e) => {
+            const x = e.offsetX;
+            const y = e.offsetY;
+            const centerX = clock.offsetWidth / 2;
+            const centerY = clock.offsetHeight / 2;
+            
+            const angle = Math.atan2(y - centerY, x - centerX) * 180 / Math.PI;
+            
+            clock.style.transform = `rotate3d(${
+                (y - centerY) / 20
+            }, ${
+                -(x - centerX) / 20
+            }, 0, ${angle}deg)`;
+        });
+        
+        clock.addEventListener('mouseleave', () => {
+            clock.style.transform = 'rotate3d(0, 0, 0, 0)';
+        });
+    </script>
+</body>
+</html>
         <main class="content">
             <section class="info-section animate-fade-in">
                 <div class="info-card">
