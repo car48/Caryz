@@ -220,5 +220,28 @@ body {
     
     .contact-links {
         flex-direction: column;
+        
     }
+    * {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+body {
+  background: white;
+}
+marquee {
+  height: 40px;
+  width: 90%;
+  color: white;
+  border: 1px solid black
+  font-size: 30px;
+  margin-bottom: 20px;
+}
 }
