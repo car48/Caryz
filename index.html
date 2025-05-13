@@ -545,54 +545,334 @@ date.Second()+":"+
 </script>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<h1> Balasan chat anonim </h1>
-<title>Pesan Anda</title>
-<style>
-.container {
-  width: 80%;
-  margin: 17px auto;
-  font-family: sans-serif;
-}
-
-.message-box {
-  background-color: #f0f0f0;
-  border-radius: 7px;
-  padding: 11px;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: right; /* Agar pesan Anda berada di kanan */
-}
-
-.message-text {
-  color: #333;
-  font-size: 13px;
-  word-wrap: break-word;
-}
-
-.timestamp {
-  color: #777;
-  font-size: 10px;
-  margin-top: 3px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable 6-Column Layout</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #4361ee;
+            --primary-light: #ebefff;
+            --secondary: #3a0ca3;
+            --text: #2b2d42;
+            --text-light: #8d99ae;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #e9ecef;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* Main Container */
+        .scroll-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Header */
+        .section-header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: underlineGrow 0.6s 0.3s ease-out forwards;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+        
+        @keyframes underlineGrow {
+            to { transform: scaleX(1); }
+        }
+        
+        /* Scrollable Columns */
+        .columns-scroller {
+            position: relative;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        
+        .columns-wrapper {
+            display: inline-flex;
+            gap: 20px;
+            padding: 10px 5px;
+            width: max-content;
+        }
+        
+        /* Individual Column */
+        .column {
+            width: 250px;
+            min-width: 250px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: columnEntry 0.6s ease-out forwards;
+        }
+        
+        @keyframes columnEntry {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Column animations with delays */
+        .column:nth-child(1) { animation-delay: 0.1s; }
+        .column:nth-child(2) { animation-delay: 0.2s; }
+        .column:nth-child(3) { animation-delay: 0.3s; }
+        .column:nth-child(4) { animation-delay: 0.4s; }
+        .column:nth-child(5) { animation-delay: 0.5s; }
+        .column:nth-child(6) { animation-delay: 0.6s; }
+        
+        .column:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+        
+        .column-header {
+            padding: 15px;
+            background: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .column-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .column-content {
+            padding: 15px;
+            min-height: 150px;
+        }
+        
+        /* Empty state styling */
+        .empty-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        /* Scrollbar Styling */
+        .columns-scroller::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .columns-scroller::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+        
+        .columns-scroller::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        
+        .columns-scroller::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Navigation Arrows */
+        .scroll-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .scroll-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .section-header h2 {
+                font-size: 24px;
+            }
+            
+            .column {
+                width: 220px;
+                min-width: 220px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="scroll-container">
+        <div class="section-header">
+            <h2>Balasan chat Anonim 🙋🏻‍♂️</h2>
+        </div>
+        
+        <div class="columns-scroller" id="scroller">
+            <div class="columns-wrapper">
+                <!-- Column 1 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: ahh iyatah kune</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: selalu menyenangkan waktu bareng lo</div>
+                     </div> <h6> 10:32 WIB</h6> 
+                </div>
+                
+                <!-- Column 2 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: ya ntarr kapan kapan</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: chat gue dong</div>
+                    </div> <h6>14:27 WIB</h6>
+                </div>
+                
+                <!-- Column 3 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: yaudah sieh sabarr namanya juga seleb😔</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: lo terlalu lama bales chat gue</div>
+                    </div>  <h6>09:54 WIB</h6>
+                </div>
+                
+                <!-- Column 4 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: drung lg puasa solae</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"> 👤: mangan drung</div>
+                    </div>  <h6>21:06 WIB</h6>
+                </div>
+                
+                <!-- Column 5 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5> 5</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">Content goes here</div>
+                    </div>
+                </div>
+                
+                <!-- Column 6 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>6</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">Content goes here</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-nav">
+            <button class="scroll-btn" id="scroll-left">←</button>
+            <button class="scroll-btn" id="scroll-right">→</button>
+        </div>
+    </div>
 
-<div class="container">
-  <div class="message-box">
-    <p class="message-text"> Si anonim: chat gue dong</p>
-    <p class="timestamp">Senin, 12 Mei 2025, 10:54 WIB</p>
-  </div>
-
-  <div class="message-box">
-    <p class="message-text"> Aing🗿☝🏻: chat ke siapa dulu nieh 😭😭</p>
-    <p class="timestamp">Senin, 12 Mei 2025, 10:57 WIB</p>
-  </div>
-
-  </div>
-
+    <script>
+        // Scroll functionality
+        const scrollLeft = document.getElementById('scroll-left');
+        const scrollRight = document.getElementById('scroll-right');
+        const scroller = document.getElementById('scroller');
+        
+        scrollLeft.addEventListener('click', () => {
+            scroller.scrollBy({ left: -250, behavior: 'smooth' });
+        });
+        
+        scrollRight.addEventListener('click', () => {
+            scroller.scrollBy({ left: 250, behavior: 'smooth' });
+        });
+        
+        // Touch/swipe support for mobile
+        let isDown = false;
+        let startX;
+        let scrollLeftPos;
+        
+        scroller.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - scroller.offsetLeft;
+            scrollLeftPos = scroller.scrollLeft;
+        });
+        
+        scroller.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        
+        scroller.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        
+        scroller.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scroller.offsetLeft;
+            const walk = (x - startX) * 2;
+            scroller.scrollLeft = scrollLeftPos - walk;
+        });
+    </script>
 </body>
 </html>
             
