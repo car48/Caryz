@@ -9,6 +9,236 @@
 </head>
 <body>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website dengan Menu Hamburger Premium</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        /* Hamburger Menu Container */
+        .hamburger-menu {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 1000;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* Hamburger Icon */
+        .hamburger-icon {
+            width: 25px;
+            height: 20px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .hamburger-icon span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #2c3e50;
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: all 0.25s ease-in-out;
+        }
+        
+        .hamburger-icon span:nth-child(1) {
+            top: 0;
+            transform-origin: left center;
+        }
+        
+        .hamburger-icon span:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%);
+            transform-origin: left center;
+        }
+        
+        .hamburger-icon span:nth-child(3) {
+            bottom: 0;
+            transform-origin: left center;
+        }
+        
+        /* Menu Content */
+        .menu-content {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            padding: 80px 30px 30px;
+            display: flex;
+            flex-direction: column;
+            z-index: 999;
+        }
+        
+        .menu-content a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: translateX(20px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .menu-content a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .menu-content a:hover {
+            transform: translateX(0);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .menu-content a:hover::before {
+            left: 0;
+        }
+        
+        /* Active State */
+        .hamburger-menu.active {
+            right: 270px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .hamburger-menu.active .hamburger-icon span:nth-child(1) {
+            transform: rotate(45deg);
+            top: -3px;
+            left: 4px;
+            background: #fff;
+        }
+        
+        .hamburger-menu.active .hamburger-icon span:nth-child(2) {
+            width: 0%;
+            opacity: 0;
+        }
+        
+        .hamburger-menu.active .hamburger-icon span:nth-child(3) {
+            transform: rotate(-45deg);
+            bottom: -3px;
+            left: 4px;
+            background: #fff;
+        }
+        
+        .menu-content.active {
+            right: 0;
+        }
+        
+        .menu-content.active a {
+            transform: translateX(0);
+            opacity: 1;
+            transition-delay: calc(0.1s * var(--i));
+        }
+        
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Hamburger Menu -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    
+    <!-- Menu Content -->
+    <div class="menu-content" id="menuContent">
+        <a href="https://www.crazygames.co.id/" style="--i: 1;">Web game online free</a>
+        <a href="https://youtube.com/shorts/fokOOP4PZjA?si=z7ZzRAPbsTuWeaR2" style="--i: 2;">Web bokep indo🫦</a>
+        <a href="https://mengajionline.com/id/belajar-ngaji-id/" style="--i: 3;">Web hijrah mengaji</a>
+     
+    </div>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <script>
+        const hamburgerMenu = document.getElementById('hamburgerMenu');
+        const menuContent = document.getElementById('menuContent');
+        const overlay = document.getElementById('overlay');
+        
+        hamburgerMenu.addEventListener('click', () => {
+            hamburgerMenu.classList.toggle('active');
+            menuContent.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Close when clicking overlay
+            overlay.addEventListener('click', () => {
+                hamburgerMenu.classList.remove('active');
+                menuContent.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
+
     
     <div class="container">
         <header class="header">
