@@ -232,7 +232,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
   }
-}
 body {
   background: white;
 }
@@ -243,5 +242,4 @@ marquee {
   border: 1px solid black
   font-size: 30px;
   margin-bottom: 20px;
-}
 }
