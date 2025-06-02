@@ -778,6 +778,142 @@ date.Second()+":"+
 }, 100)
 </script>
 
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -16px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            animation: underlineGrow 0.6s 0.3s ease-out forwards;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+        
+        @keyframes underlineGrow {
+            to { transform: scaleX(1); }
+        }
+        
+        /* Scrollable Columns */
+        .columns-scroller {
+            position: relative;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+        }
+        
+        .columns-wrapper {
+            display: inline-flex;
+            gap: 20px;
+            padding: 10px 5px;
+            width: max-content;
+        }
+        
+        /* Individual Column */
+        .column {
+            width: 250px;
+            min-width: 250px;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: columnEntry 0.6s ease-out forwards;
+        }
+        
+        @keyframes columnEntry {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Column animations with delays */
+        .column:nth-child(1) { animation-delay: 0.1s; }
+        .column:nth-child(2) { animation-delay: 0.2s; }
+        .column:nth-child(3) { animation-delay: 0.3s; }
+        .column:nth-child(4) { animation-delay: 0.4s; }
+        .column:nth-child(5) { animation-delay: 0.5s; }
+        .column:nth-child(6) { animation-delay: 0.6s; }
+        
+        .column:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: var(--primary);
+        }
+        
+        .column-header {
+            padding: 15px;
+            background: var(--primary-light);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .column-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .column-content {
+            padding: 15px;
+            min-height: 150px;
+        }
+        
+        /* Empty state styling */
+        .empty-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+        
+        /* Scrollbar Styling */
+        .columns-scroller::-webkit-scrollbar {
+            height: 6px;
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: ya ntarr kapan kapan</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: chat gue dong</div>
+                    </div> <h6>14:27 WIB</h6>
+                </div>
+                
+                <!-- Column 3 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: yaudah sieh sabarr namanya juga seleb😔</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: lo terlalu lama bales chat gue</div>
+                    </div>  <h6>09:54 WIB</h6>
+                </div>
+                
+                <!-- Column 4 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: drung lg puasa solae</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"> 👤: mangan drung</div>
+                    </div>  <h6>21:06 WIB</h6>
+                </div>
+
+</body>
+</html>
+            
+            
+            <img src="judol.jpg" width="328px" height="100px">
+            <!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <meta name="viewport" conten="width=devive-width,initial-scale=1">
+  <title>Teks Berjalan</title>
+  
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -897,6 +1033,17 @@ date.Second()+":"+
         .column:nth-child(4) { animation-delay: 0.4s; }
         .column:nth-child(5) { animation-delay: 0.5s; }
         .column:nth-child(6) { animation-delay: 0.6s; }
+        .column:nth-child(7) { animation-delay: 0.7s; }
+        .column:nth-child(8) { animation-delay: 0.8s; }
+        .column:nth-child(9) { animation-delay: 0.9s; }
+        .column:nth-child(10) { animation-delay: 1.0s; }
+        .column:nth-child(11) { animation-delay: 1.1s; }
+        .column:nth-child(12) { animation-delay: 1.2s; }
+        .column:nth-child(13) { animation-delay: 1.3s; }
+        .column:nth-child(14) { animation-delay: 1.4s; }
+        .column:nth-child(15) { animation-delay: 1.5s; }
+        .column:nth-child(16) { animation-delay: 1.6s; }
+        .column:nth-child(17) { animation-delay: 1.7s; }
         
         .column:hover {
             transform: translateY(-5px);
@@ -1001,11 +1148,11 @@ date.Second()+":"+
                 <!-- Column 1 -->
                 <div class="column">
                     <div class="column-header">
-                        <h5>Aing🗿☝🏻: bapak mu juga cute 😭😭</h5>
+                        <h5>Aing🗿☝🏻: ahh iyatah kune</h5>
                     </div>
                     <div class="column-content">
-                        <div class="empty-content">👤: lu cute wkwkwk</div>
-                     </div> <h6> 20:19 WIB</h6> 
+                        <div class="empty-content">👤: selalu menyenangkan waktu bareng lo</div>
+                     </div> <h6> 10:32 WIB</h6> 
                 </div>
                 
                 <!-- Column 2 -->
@@ -1041,21 +1188,131 @@ date.Second()+":"+
                 <!-- Column 5 -->
                 <div class="column">
                     <div class="column-header">
-                        <h5>Aing🗿☝🏻: bolehh</h5>
+                        <h5>Aing🗿☝🏻: lagi sibuk ngerjain tugas</h5>
                     </div>
                     <div class="column-content">
-                        <div class="empty-content">👤: gimana kalo kita ngobrol lebih sering?</div>
-                    </div> <h6>11:35 WIB</h6>
+                        <div class="empty-content">👤: kapan kita ketemuan lagi?</div>
+                    </div> <h6>18:45 WIB</h6>
                 </div>
                 
                 <!-- Column 6 -->
                 <div class="column">
                     <div class="column-header">
-                        <h5>Aing🗿☝🏻: Sohib tuh apah ya</h5>
+                        <h5>Aing🗿☝🏻: nanti malem gw free</h5>
                     </div>
                     <div class="column-content">
-                        <div class="empty-content">👤: jadi sohib gue dong...</div>
-                    </div> <h6>20:36 WIB</h6>
+                        <div class="empty-content">👤: mau main game bareng?</div>
+                    </div> <h6>16:12 WIB</h6>
+                </div>
+                
+                <!-- Column 7 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: wahh asli gak tuh</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: gue kangennn sama lo</div>
+                    </div> <h6>21:43 WIB</h6>
+                </div>
+                
+                <!-- Column 8 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: halo juga🐱</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: halo cardi</div>
+                    </div> <h6>21:45 WIB</h6>
+                </div>
+                
+                <!-- Column 9 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: hah Emangya aku salah apah ya kak😭</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: kenapa lo bikin semuanya susah sih..</div>
+                    </div> <h6>21:42 WIB</h6>
+                </div>
+                
+                <!-- Column 10 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>column 10</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6></h6>
+                </div>
+                
+                <!-- Column 11 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>column 11</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6></h6>
+                </div>
+                
+                <!-- Column 12 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5></h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6></h6>
+                </div>
+                
+                <!-- Column 13 -->
+                <div class="column">
+                    <div class="column-header">
+                       <h5> </h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6></h6>
+                </div>
+                
+                <!-- Column 14 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5>Aing🗿☝🏻: besok weekend</h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content">👤: mau jalan-jalan?</div>
+                    </div> <h6>15:10 WIB</h6>
+                </div>
+                
+                <!-- Column 15 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5></h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6>di</h6>
+                </div>
+                
+                <!-- Column 16 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5></h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6></h6>
+                </div>
+                
+                <!-- Column 17 -->
+                <div class="column">
+                    <div class="column-header">
+                        <h5></h5>
+                    </div>
+                    <div class="column-content">
+                        <div class="empty-content"></div>
+                    </div> <h6></h6>
                 </div>
             </div>
         </div>
@@ -1109,16 +1366,6 @@ date.Second()+":"+
     </script>
 </body>
 </html>
-            
-            
-            <img src="judol.jpg" width="328px" height="100px">
-            <!DOCTYPE html>
-<html>
-  <meta charset="utf-8">
-  <meta name="viewport" conten="width=devive-width,initial-scale=1">
-  <title>Teks Berjalan</title>
-  
-
 
 
 <head>
