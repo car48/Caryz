@@ -1,40 +1,729 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Portfolio</title>
-
+    
     <!-- font google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
     <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <!-- aos -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo h3 span {
+            color: #6c63ff;
+        }
+
+        .navlist {
+            display: flex;
+        }
+
+        .navlist ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .navlist ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navlist ul li a:hover {
+            color: #6c63ff;
+        }
+
+        .menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .xx {
+            display: none;
+        }
+
+        /* Home Section */
+        .home {
+            padding: 120px 5% 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-kotak {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .kotak1 h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .kotak1 span {
+            color: #6c63ff;
+        }
+
+        .kotak1 p {
+            margin-bottom: 30px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .info-box {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .email-info h5, .lom-info h5 {
+            color: #6c63ff;
+            margin-bottom: 5px;
+        }
+
+        .box-btn {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #5752d4;
+            transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background-color: transparent;
+            border: 2px solid #6c63ff;
+            color: #6c63ff;
+        }
+
+        .home-icon {
+            display: flex;
+            gap: 15px;
+        }
+
+        .home-icon a {
+            color: #333;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .home-icon a:hover {
+            color: #6c63ff;
+        }
+
+        .kotak2 {
+            display: flex;
+            justify-content: center;
+        }
+
+        .kotak2 .gambar img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 5%;
+        }
+
+        .about-kotak {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-satu .gambar img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-dua h3 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .about-dua h3 span {
+            color: #6c63ff;
+        }
+
+        .about-dua p {
+            margin-bottom: 20px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .abtn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #6c63ff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .abtn:hover {
+            background-color: #5752d4;
+            transform: translateY(-2px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 5%;
+            background-color: #f0f2f5;
+        }
+
+        .judul {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .judul h5 {
+            color: #6c63ff;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .judul h2 {
+            font-size: 2.2rem;
+        }
+
+        .services-kotak {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .item-services {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .item-services:hover {
+            transform: translateY(-10px);
+        }
+
+        .icon-services {
+            font-size: 2.5rem;
+            color: #6c63ff;
+            margin-bottom: 20px;
+        }
+
+        .item-services h3 {
+            margin-bottom: 15px;
+        }
+
+        .item-services p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 80px 5%;
+        }
+
+        .judul-porto {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .judul-porto h2 {
+            font-size: 2.2rem;
+        }
+
+        .porto-kotak {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .kotak-1 {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .kotak-1 .gambar img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .kotak-1 .teks {
+            padding: 20px;
+        }
+
+        .kotak-1 h5 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .kotak-1 p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .icon-portfolio {
+            color: #6c63ff;
+            font-size: 1.5rem;
+        }
+
+        .porto-btn {
+            text-align: center;
+        }
+
+        .porto-btn span {
+            display: inline-block;
+            padding: 10px 30px;
+            border: 2px solid #6c63ff;
+            color: #6c63ff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .porto-btn span:hover {
+            background-color: #6c63ff;
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 5%;
+            background-color: #f0f2f5;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-left h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-left p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-left p i {
+            color: #6c63ff;
+        }
+
+        .contact-icon {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+
+        .contact-icon i {
+            color: #333;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .contact-icon i:hover {
+            color: #6c63ff;
+        }
+
+        .contact-right form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-right input,
+        .contact-right textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-right textarea {
+            resize: vertical;
+        }
+
+        .btn-kirim {
+            padding: 12px;
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-kirim:hover {
+            background-color: #5752d4;
+        }
+
+        /* Copyright Section */
+        .copyright {
+            padding: 40px 5%;
+            background-color: #333;
+            color: white;
+        }
+
+        .cp-atas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .item h4 {
+            margin-bottom: 15px;
+            color: #6c63ff;
+        }
+
+        .item p {
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .garis {
+            border-color: #555;
+            margin: 30px 0;
+        }
+
+        .cp-icon {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .cp-icon i {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .cp-icon i:hover {
+            color: #6c63ff;
+        }
+
+        .copy {
+            text-align: center;
+            color: #ccc;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .home-kotak,
+            .about-kotak,
+            .row {
+                grid-template-columns: 1fr;
+            }
+            
+            .kotak1 h3 {
+                font-size: 2rem;
+            }
+            
+            .info-box {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navlist {
+                position: fixed;
+                top: 0;
+                right: -250px;
+                width: 250px;
+                height: 100vh;
+                background-color: white;
+                flex-direction: column;
+                padding: 80px 30px;
+                transition: right 0.3s;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            
+            .navlist.active {
+                right: 0;
+            }
+            
+            .navlist ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .xx {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .menu {
+                display: block;
+            }
+            
+            .home {
+                padding-top: 100px;
+            }
+            
+            .box-btn {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .porto-kotak {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 15px 20px;
+            }
+            
+            .home, .about, .services, .portfolio, .contact {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            
+            .kotak1 h3 {
+                font-size: 1.8rem;
+            }
+            
+            .judul h2, .about-dua h3, .contact-left h3 {
+                font-size: 1.8rem;
+            }
+            
+            .item-services {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
     <header>
-      <div class="logo">
-        <h3><span>N</span>isa.</h3>
-      </div>
-      <div class="navlist">
-        <li class="xx"><i class="bi bi-x-lg" onclick="hidemenu()"></i></li>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <!-- <li><a href="#skills">Skills</a></li> -->
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#contact">Contact</a></li>
+        <div class="logo">
+            <h3><span>N</span>isa.</h3>
+        </div>
+        <div class="navlist" id="navlist">
+            <li class="xx"><i class="bi bi-x-lg" onclick="hidemenu()"></i></li>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="menu">
+            <i class="bi bi-list" onclick="showmenu()"></i>
+        </div>
+    </header>
+
+    <section class="home" id="home">
+        <div class="home-kotak">
+            <div class="kotak1">
+                <h3>Hi I'm Khairunnisa <br>And I'm <span class="auto-type"></span></h3>
+                <p>As a Front End Developer, I have a passion for creating engaging and interactive user experiences through the development of responsive and dynamic web applications.</p>
+                <div class="info-box">
+                    <div class="email-info">
+                        <h5>Email:</h5>
+                        <p>Nisa83334@gmail.com</p>
+                    </div>
+                    <div class="lom-info">
+                        <h5>Behance:</h5>
+                        <p>Behance.net/Nisa</p>
+                    </div>
+                </div>
+                <div class="box-btn">
+                    <a href="#" class="btn active">Download CV</a>
+                    <a href="#" class="btn">Hire Me Now</a>
+                </div>
+                <div class="home-icon">
+                    <a href="#"><i class="bi bi-facebook"></i></a>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href="#"><i class="bi bi-twitter"></i></a>
+                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="kotak2">
+                <div class="gambar">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Female Developer">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <div class="about-kotak">
+            <div class="about-satu" data-aos="fade-right">
+                <div class="gambar">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Female Professional">
+                </div>
+            </div>
+            <div class="about-dua" data-aos="fade-left">
+                <h3>About <span>Me</span></h3>
+                <p>Hi, I'm Here To Help Your Next Project!</p>
+                <p>I am a passionate Frontend Developer with expertise in creating responsive and user-friendly web applications. With a strong foundation in HTML, CSS, JavaScript, and modern frameworks, I focus on delivering clean, efficient code and engaging user experiences.</p>
+                <div class="about-btn">
+                    <a href="#" class="abtn">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="judul" data-aos="flip-left">
+            <h5>WHAT I WILL DO FOR YOU</h5>
+            <h2><span>Our Services</span></h2>
+        </div>
+
+        <div class="services-kotak">
+            <div class="item-services" data-aos="fade-up">
+                <i class="bi bi-pc-display-horizontal icon-services"></i>
+                <h3>Web Design</h3>
+                <p>Creating visually appealing and user-friendly website designs that enhance user experience and engagement across all devices.</p>
+                <div class="about-btn">
+                    <a href="#" class="abtn">Read More</a>
+                </div>
+            </div>
+            <div class="item-services" data-aos="fade-up" data-aos-delay="100">
+                <i class="bi bi-code-slash icon-services"></i>
+                <h3>Web Development</h3>
+                <p>Building responsive and interactive websites using modern technologies like HTML5, CSS3, JavaScript, and React.</p>
+                <div class="about-btn">
+                    <a href="#" class="abtn">Read More</a>
+                </div>
+            </div>
+            <div class="item-services" data-aos="fade-up" data-aos-delay="200">
+                <i class="bi bi-stack icon-services"></i>
+                <h3>UI/UX Design</h3>
+                <p>Designing intuitive user interfaces and experiences that focus on user needs and provide seamless interactions.</p>
+                <div class="about-btn">
+                    <a href="#" class="abtn">Read More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio" id="portfolio">
+        <div class="judul-porto">
+            <h2>My Work</h2>
+        </div>
+        <div class="porto-kotak">
+            <div class="kotak-1" data-aos="fade-up">
+                <div class="gambar">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="University Website">
+                </div>
+                <div class="teks">
+                    <h5>University Website</h5>
+                    <p>This website showcases the profile of a major university, providing essential information such as study programs, campus facilities, and academic activities.</p>
+                    <i class="bi bi-arrow-up-right-square icon-portfolio"></i>
+                </div>
+            </div>
+            <div class="kotak-1" data-aos="fade-up" data-aos-delay="100">
+                <div class="gambar">
+                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="E-commerce Website">
+                </div>
+                <div class="teks">
+                    <h5>E-commerce Platform</h5>
+                    <p>Developed a fully responsive e-commerce platform with product filtering, cart functionality, and secure checkout process.</p>
+                    <i class="bi bi-brilliance icon-portfolio"></i>
+                </div>
+            </div>
+                      <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
       <div class="menu">
