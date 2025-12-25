@@ -1254,3 +1254,39 @@ date.Second()+":"+
 </body>
 </head>
 </html>
+/* GANTI SEMUA CSS BODY ANDA DENGAN INI */
+body {
+    background: linear-gradient(-45deg, #d9e4f5, #f5e6e8, #e8f5e9, #fff3e0);
+    background-size: 400% 400%;
+    animation: softGradient 25s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    transition: background 2s ease-in-out;
+}
+
+/* Animasi gradasi yang sangat smooth */
+@keyframes softGradient {
+    0% {
+        background-position: 0% 50%;
+        background: linear-gradient(-45deg, #d9e4f5, #f5e6e8, #e8f5e9, #fff3e0);
+    }
+    25% {
+        background-position: 25% 50%;
+        background: linear-gradient(-45deg, #f5e6e8, #e8f5e9, #fff3e0, #d9e4f5);
+    }
+    50% {
+        background-position: 50% 50%;
+        background: linear-gradient(-45deg, #e8f5e9, #fff3e0, #d9e4f5, #f5e6e8);
+    }
+    75% {
+        background-position: 75% 50%;
+        background: linear-gradient(-45deg, #fff3e0, #d9e4f5, #f5e6e8, #e8f5e9);
+    }
+    100% {
+        background-position: 100% 50%;
+        background: linear-gradient(-45deg, #d9e4f5, #f5e6e8, #e8f5e9, #fff3e0);
+    }
+}
