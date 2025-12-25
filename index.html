@@ -18,19 +18,67 @@
     <title>Website dengan Menu Hamburger Premium</title>
     <style>
         /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
-            min-height: 100vh;
-            padding: 2rem;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* BACKGROUND YANG BERUBAH-UBAH */
+body {
+    background: linear-gradient(-45deg, 
+        rgba(220, 237, 255, 0.8),  /* Soft Blue */
+        rgba(255, 225, 225, 0.8),  /* Soft Pink */
+        rgba(225, 255, 230, 0.8),  /* Soft Mint */
+        rgba(255, 245, 225, 0.8)   /* Soft Peach */
+    );
+    background-size: 300% 300%;
+    animation: pastelFlow 30s ease-in-out infinite;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+@keyframes pastelFlow {
+    0% {
+        background-position: 0% 50%;
+        background: linear-gradient(-45deg, 
+            rgba(220, 237, 255, 0.8),
+            rgba(255, 225, 225, 0.8),
+            rgba(225, 255, 230, 0.8),
+            rgba(255, 245, 225, 0.8)
+        );
+    }
+    33% {
+        background-position: 33% 50%;
+        background: linear-gradient(-45deg,
+            rgba(255, 225, 225, 0.8),
+            rgba(225, 255, 230, 0.8),
+            rgba(255, 245, 225, 0.8),
+            rgba(220, 237, 255, 0.8)
+        );
+    }
+    66% {
+        background-position: 66% 50%;
+        background: linear-gradient(-45deg,
+            rgba(225, 255, 230, 0.8),
+            rgba(255, 245, 225, 0.8),
+            rgba(220, 237, 255, 0.8),
+            rgba(255, 225, 225, 0.8)
+        );
+    }
+    100% {
+        background-position: 100% 50%;
+        background: linear-gradient(-45deg,
+            rgba(255, 245, 225, 0.8),
+            rgba(220, 237, 255, 0.8),
+            rgba(255, 225, 225, 0.8),
+            rgba(225, 255, 230, 0.8)
+        );
+    }
+                                    }
         
         /* Hamburger Menu Container */
         .hamburger-menu {
