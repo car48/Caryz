@@ -218,7 +218,7 @@ p {
 .profile-img {
     width: 350px;
     height: 350px;
-    border-radius: 50%;
+    border-radius: 27%;
     overflow: hidden;
     border: 8px solid white;
     box-shadow: var(--shadow);
