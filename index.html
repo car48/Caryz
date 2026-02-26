@@ -90,7 +90,83 @@
                                 <p>Bermain game seperti roblox dan epep </p>
                             </div>
                         </div>
-                    </div>
+                  
+                    
+                    
+                    <!-- Visitor Counter dengan Animasi -->
+<div class="counter-wrapper" id="counterWrapper">
+    <span class="counter-emoji">📊</span>
+    <span class="counter-label">Pengunjung</span>
+    <span class="counter-value" id="totalView">0</span>
+</div>
+
+<style>
+.counter-wrapper {
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.counter-emoji {
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.counter-label {
+    color: #495057;
+    margin-right: 6px;
+    font-weight: 400;
+}
+
+.counter-value {
+    font-weight: 700;
+    color: #0b5ed7;
+    background: white;
+    padding: 3px 10px;
+    border-radius: 30px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+.counter-wrapper:hover .counter-value {
+    background: #0b5ed7;
+    color: white;
+}
+</style>
+
+<script>
+// Counter dengan animasi angka
+(function() {
+    // Data counter
+    let visitors = localStorage.getItem('site_visitors');
+    
+    if (!visitors) {
+        visitors = 1;
+    } else {
+        visitors = parseInt(visitors) + 1;
+    }
+    
+    localStorage.setItem('site_visitors', visitors);
+    
+    // Animasi tampil
+    const el = document.getElementById('totalView');
+    
+    // Efek fade in
+    el.style.opacity = '0';
+    el.textContent = visitors;
+    
+    setTimeout(() => {
+        el.style.transition = 'opacity 0.5s';
+        el.style.opacity = '1';
+    }, 100);
+})();
+ </script></div>
                 </div>
                 <div class="about-image">
                     <div class="floating-card">
