@@ -91,12 +91,10 @@
                             </div>
                         </div>
                   
-                    
-                    
-                    <!-- Visitor Counter dengan Animasi -->
+                    <!-- Visitor Counter - cardi.web.id -->
 <div class="counter-wrapper" id="counterWrapper">
     <span class="counter-emoji">📊</span>
-    <span class="counter-label">Pengunjung</span>
+    <span class="counter-label">Pengunjung:</span>
     <span class="counter-value" id="totalView">0</span>
 </div>
 
@@ -141,32 +139,30 @@
 </style>
 
 <script>
-// Counter dengan animasi angka
-(function() {
-    // Data counter
-    let visitors = localStorage.getItem('site_visitors');
-    
-    if (!visitors) {
-        visitors = 1;
-    } else {
-        visitors = parseInt(visitors) + 1;
-    }
-    
-    localStorage.setItem('site_visitors', visitors);
-    
-    // Animasi tampil
-    const el = document.getElementById('totalView');
-    
-    // Efek fade in
-    el.style.opacity = '0';
-    el.textContent = visitors;
-    
-    setTimeout(() => {
-        el.style.transition = 'opacity 0.5s';
-        el.style.opacity = '1';
-    }, 100);
-})();
- </script></div>
+// ✨ KHUSUS cardi.web.id ✨
+const NAMA_SITE = 'cardi-web-id'; // <-- SUDAH DIISI
+
+fetch(`https://api.countapi.xyz/hit/${NAMA_SITE}/pengunjung`)
+    .then(res => res.json())
+    .then(data => {
+        const el = document.getElementById('totalView');
+        const jumlah = data.value;
+        
+        // Animasi fade in
+        el.style.opacity = '0';
+        el.textContent = jumlah.toLocaleString('id-ID');
+        
+        setTimeout(() => {
+            el.style.transition = 'opacity 0.5s';
+            el.style.opacity = '1';
+        }, 100);
+    })
+    .catch(() => {
+        document.getElementById('totalView').textContent = '999+';
+    });
+</script>
+                    
+                    
                 </div>
                 <div class="about-image">
                     <div class="floating-card">
