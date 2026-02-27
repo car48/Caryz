@@ -417,532 +417,8 @@
                     </form>
 </div>
     
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Humanis News · ala Polda Metro</title>
-    <!-- Font Awesome 6 (free) for subtle icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
-        }
 
-        body {
-            background: #f0f2f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 1.5rem;
-        }
-
-        /* komponen utama — mirip potret berita */
-        .news-widget {
-            max-width: 680px;
-            width: 100%;
-            background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 35px -5px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.05);
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .news-header {
-            padding: 1.5rem 1.8rem 0.5rem 1.8rem;
-        }
-
-        .news-header h2 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            color: #0b1b33;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .news-header h2 i {
-            color: #d32f2f;
-            font-size: 1.8rem;
-        }
-
-        .timestamp {
-            color: #5e6f8d;
-            font-size: 0.9rem;
-            margin-top: 4px;
-            font-weight: 400;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .timestamp i {
-            font-size: 0.8rem;
-            opacity: 0.8;
-        }
-
-        /* list artikel persis seperti deskripsi */
-        .news-list {
-            list-style: none;
-            padding: 0.2rem 0 0.8rem 0;
-        }
-
-        .news-item {
-            border-bottom: 1px solid #e9ecf2;
-            transition: background 0.2s;
-            cursor: pointer;
-        }
-
-        .news-item:last-child {
-            border-bottom: none;
-        }
-
-        .news-item summary {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 1.8rem;
-            list-style: none; /* hapus segitiga default */
-            font-weight: 500;
-            color: #121f3f;
-        }
-
-        .news-item summary::-webkit-details-marker {
-            display: none; /* hilangkan panah di chrome/safari */
-        }
-
-        .news-content {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        /* thumbnail gambar — bisa diganti dengan foto Anda */
-        .thumbnail {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: #cbd5e1; /* fallback */
-            flex-shrink: 0;
-            overflow: hidden;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .text-block {
-            flex: 1;
-        }
-
-        .text-block .title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            line-height: 1.4;
-            margin-bottom: 4px;
-            color: #0a1a2b;
-        }
-
-        .text-block .meta {
-            font-size: 0.8rem;
-            color: #6f7d98;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .meta i {
-            font-size: 0.7rem;
-            color: #9aa7c1;
-        }
-
-        .meta .time-ago {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        /* panah / indikator expand */
-        .expand-icon {
-            color: #a0aec0;
-            font-size: 1rem;
-            transition: transform 0.25s;
-            margin-left: 12px;
-        }
-
-        .news-item[open] .expand-icon {
-            transform: rotate(180deg);
-            color: #1e3a8a;
-        }
-
-        /* detail panel yang muncul saat diklik */
-        .detail-panel {
-            background: #f8fafd;
-            margin: 0 1.8rem 1.2rem 1.8rem;
-            padding: 1.4rem 1.5rem 1.6rem 1.5rem;
-            border-radius: 24px;
-            border-left: 4px solid #1e3a8a;
-            box-shadow: inset 0 1px 4px rgba(0,0,0,0.02), 0 6px 12px -8px rgba(0,20,40,0.2);
-        }
-
-        /* info lebih lanjut yang rapih */
-        .info-lengkap {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .info-row {
-            display: flex;
-            gap: 14px;
-            align-items: flex-start;
-        }
-
-        .info-icon {
-            min-width: 32px;
-            height: 32px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1e3a8a;
-            box-shadow: 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-text {
-            background: white;
-            padding: 12px 18px;
-            border-radius: 18px;
-            flex: 1;
-            color: #1f2a44;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-            border: 1px solid #eef2f6;
-        }
-
-        .info-text strong {
-            color: #0b1b33;
-            font-weight: 600;
-        }
-
-        .info-text i {
-            color: #4f6f9f;
-            font-style: italic;
-        }
-
-        /* PROMOTED / label khusus */
-        .promoted-badge {
-            background: #fae6e6;
-            color: #b13e3e;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 40px;
-            letter-spacing: 0.3px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            margin-left: 8px;
-            border: 1px solid #f5cdcd;
-        }
-
-        .promoted-badge i {
-            font-size: 0.7rem;
-        }
-
-        /* tombol ganti foto (simulasi) — bisa diabaikan jika hanya demo, tapi biar terlihat interaktif */
-        .photo-controls {
-            display: flex;
-            justify-content: flex-end;
-            padding: 0.8rem 1.8rem 1.2rem 1.8rem;
-            border-top: 1px dashed #dce3ec;
-        }
-
-        .btn-ghost {
-            background: none;
-            border: 1px solid #becadf;
-            padding: 0.5rem 1.2rem;
-            border-radius: 60px;
-            font-size: 0.85rem;
-            color: #1f3a6b;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-ghost:hover {
-            background: #e9eef7;
-            border-color: #8fa3c9;
-        }
-
-        .btn-ghost i {
-            font-size: 1rem;
-        }
-
-        /* foto profil custom */
-        .custom-photo {
-            object-fit: cover;
-        }
-
-        /* footer mini */
-        .attribution {
-            font-size: 0.75rem;
-            color: #919fb1;
-            padding: 0.8rem 1.8rem 1.2rem 1.8rem;
-            text-align: center;
-            border-top: 1px solid #eef2f6;
-        }
-    </style>
-</head>
-<body>
-
-<div class="news-widget" id="newsWidget">
-
-    <!-- header sesuai contoh: aksi massa dll -->
-    <div class="news-header">
-        <h2>
-            <i class="fas fa-newspaper"></i> Caryz news
-        </h2>
-        <div class="timestamp">
-            <i class="far fa-clock"></i> 14 menit yang lalu · <span style="display: inline-flex; gap:4px"><i class="fas fa-map-pin"></i> Indramayu</span>
-        </div>
-    </div>
-
-    <!-- list berita dibuat persis seperti teks (termasuk Promoted) -->
-    <ul class="news-list">
-        <!-- 1. Aksi Massa -->
-        <li class="news-item" id="item1">
-            <details>
-                <summary>
-                    <div class="news-content">
-                        <div class="thumbnail" id="thumb1">
-                            <!-- default ilustrasi, nanti diganti via foto Anda -->
-                            <img src="https://picsum.photos/id/1015/100/100?grayscale&seed=aksi" alt="aksi massa thumbnail" class="custom-photo" id="imgThumb1">
-                        </div>
-                        <div class="text-block">
-                            <div class="title">Aksi Massa di Jalan Trunojoyo, Polda Metro Kedepankan Pelayanan Humanis</div>
-                            <div class="meta">
-                                <span class="time-ago"><i class="far fa-clock"></i> 14 menit lalu</span>
-                                <span><i class="fas fa-tag"></i> kriminal</span>
-                            </div>
-                        </div>
-                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
-                    </div>
-                </summary>
-                <!-- detail lebih lanjut — rapih dan enak dibaca -->
-                <div class="detail-panel">
-                    <div class="info-lengkap">
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-scale-balanced"></i></div>
-                            <div class="info-text"><strong>Pendekatan humanis:</strong> Kapolda Metro Jaya langsung turun tangan, bernegosiasi dengan perwakilan massa. Tidak ada tindakan represif, malah dibagikan takjil.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-route"></i></div>
-                            <div class="info-text"><strong>Rekayasa lalu lintas:</strong> Arus dialihkan sementara, namun massa mulai membubarkan diri dengan tertib. <i>"Situasi kondusif"</i> ujar Kabid Humas.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
-                            <div class="info-text">Update terakhir pukul 17:20 WIB – pengamanan dua lapis tetap disiagakan hingga magrib.</div>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </li>
-
-        <!-- 2. Kreasi Takjil (Promoted) -->
-        <li class="news-item" id="item2">
-            <details>
-                <summary>
-                    <div class="news-content">
-                        <div class="thumbnail" id="thumb2">
-                            <img src="https://picsum.photos/id/20/100/100?seed=dessert&grayscale" alt="takjil" class="custom-photo" id="imgThumb2">
-                        </div>
-                        <div class="text-block">
-                            <div class="title">
-                                Kreasi Takjil Bulan Ramadan, AICE Got You! Dessert Master Wannabe Tawarkan Hadiah Total Puluhan Jutaan Rupiah
-                                <span class="promoted-badge"><i class="fas fa-crown"></i> PROMOTED</span>
-                            </div>
-                            <div class="meta">
-                                <span class="time-ago"><i class="far fa-clock"></i> 21 menit lalu</span>
-                                <span><i class="fas fa-fire"></i> collaboration</span>
-                            </div>
-                        </div>
-                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
-                    </div>
-                </summary>
-                <div class="detail-panel">
-                    <div class="info-lengkap">
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-gift"></i></div>
-                            <div class="info-text"><strong>Total hadiah:</strong> Rp 45.000.000 untuk para pemenang + voucher belanja. Kompetisi dessert tingkat nasional.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-ice-cream"></i></div>
-                            <div class="info-text"><strong>Kategori:</strong> Es krim kekinian, puding, dan minuman segar. Setiap finalis mendapat bimbingan dari AICE Chef.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-clock"></i></div>
-                            <div class="info-text">Pendaftaran hingga 10 April 2025. Info lebih lanjut: <i>www.aicecream.com/takjil2025</i></div>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </li>
-
-        <!-- 3. Pakai Kursi Roda, Ko Erwin Bandar Narkoba Tiba di Bareskrim -->
-        <li class="news-item" id="item3">
-            <details>
-                <summary>
-                    <div class="news-content">
-                        <div class="thumbnail" id="thumb3">
-                            <img src="https://picsum.photos/id/1043/100/100?grayscale&seed=narkoba" alt="kursi roda" class="custom-photo" id="imgThumb3">
-                        </div>
-                        <div class="text-block">
-                            <div class="title">Pakai Kursi Roda, Ko Erwin Bandar Narkoba Tiba di Bareskrim</div>
-                            <div class="meta">
-                                <span class="time-ago"><i class="far fa-clock"></i> 21 menit yang lalu</span>
-                                <span><i class="fas fa-bolt"></i> hukum</span>
-                            </div>
-                        </div>
-                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
-                    </div>
-                </summary>
-                <div class="detail-panel">
-                    <div class="info-lengkap">
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-wheelchair"></i></div>
-                            <div class="info-text"><strong>Kondisi tersangka:</strong> Ko Erwin datang dengan kursi roda karena cedera lama, namun tim medis menyatakan fit untuk diperiksa.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-cuff"></i></div>
-                            <div class="info-text"><strong>Barang bukti:</strong> 5 kg sabu dan 200 butir ekstasi disita dari rumahnya di kawasan Pantai Indah Kapuk.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-gavel"></i></div>
-                            <div class="info-text">Ancaman hukuman maksimal: pidana mati atau seumur hidup sesuai UU Narkotika.</div>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </li>
-
-        <!-- 4. Pengemudi Mobil Ugal-ugalan di Jakpus Langsung Ditahan -->
-        <li class="news-item" id="item4">
-            <details>
-                <summary>
-                    <div class="news-content">
-                        <div class="thumbnail" id="thumb4">
-                            <img src="https://picsum.photos/id/180/100/100?grayscale&seed=mobil" alt="mobil ugal" class="custom-photo" id="imgThumb4">
-                        </div>
-                        <div class="text-block">
-                            <div class="title">Pengemudi Mobil Ugal-ugalan di Jakpus Langsung Ditahan Usai Jadi Tersangka</div>
-                            <div class="meta">
-                                <span class="time-ago"><i class="far fa-clock"></i> 24 menit lalu</span>
-                                <span><i class="fas fa-car"></i> lalu lintas</span>
-                            </div>
-                        </div>
-                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
-                    </div>
-                </summary>
-                <div class="detail-panel">
-                    <div class="info-lengkap">
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-gavel"></i></div>
-                            <div class="info-text"><strong>Penetapan tersangka:</strong> MA (24) dijerat Pasal 311 UU LLAJ tentang balapan liar dan ugal-ugalan yang membahayakan nyawa.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-clipboard-list"></i></div>
-                            <div class="info-text"><strong>Kronologi singkat:</strong> menerobos lampu merah di MH Thamrin, menabrak 2 pengendara motor. Korban dirawat di RSUD Cipto.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-clock"></i></div>
-                            <div class="info-text">Ditahan di Mapolres Jakpus, mobil diamankan sebagai barang bukti.</div>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </li>
-
-        <!-- 5. Dugaan Pelecehan di KRL Rute Jakarta Kota–Bogor -->
-        <li class="news-item" id="item5">
-            <details>
-                <summary>
-                    <div class="news-content">
-                        <div class="thumbnail" id="thumb5">
-                            <img src="https://picsum.photos/id/164/100/100?grayscale&seed=krl" alt="krl" class="custom-photo" id="imgThumb5">
-                        </div>
-                        <div class="text-block">
-                            <div class="title">Dugaan Pelecehan di KRL Rute Jakarta Kota-Bogor, KCI Telusuri Pelaku</div>
-                            <div class="meta">
-                                <span class="time-ago"><i class="far fa-clock"></i> 36 menit lalu</span>
-                                <span><i class="fas fa-train"></i> transportasi</span>
-                            </div>
-                        </div>
-                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
-                    </div>
-                </summary>
-                <div class="detail-panel">
-                    <div class="info-lengkap">
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-video"></i></div>
-                            <div class="info-text"><strong>Rekaman CCTV:</strong> KCI mengidentifikasi pria berbaju hitam yang diduga melakukan pelecehan terhadap penumpang wanita di gerbong 3.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
-                            <div class="info-text"><strong>Laporan masyarakat:</strong> Korban melapor via call center 021-121. KCI akan memberi pendampingan hukum.</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
-                            <div class="info-text">Pihak KCI meningkatkan patroli di jam sibuk. Pelaku terancam blacklist seumur hidup dari seluruh layanan KRL.</div>
-                        </div>
-                    </div>
-                </div>
-            </details>
-        </li>
-    </ul>
-
-    <!-- panel kontrol untuk ganti thumbnail dengan foto Anda (simulasi) -->
-    <div class="photo-controls">
-        <button class="btn-ghost" id="gantiFotoBtn"><i class="
-    <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iklan Produk Terbaru</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        .product-ad {
-            width: 320px;
-            background:
-                
-                
-            </div>
-        </section>
-</main>
-
+    
     <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1205,7 +681,95 @@
         </div>
     </footer>
 
+
+                                    <span class="time-ago"><i class="far fa-clock"></i> 24 menit lalu</span>
+                                <span><i class="fas fa-car"></i> lalu lintas</span>
+                            </div>
+                        </div>
+                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </summary>
+                <div class="detail-panel">
+                    <div class="info-lengkap">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-gavel"></i></div>
+                            <div class="info-text"><strong>Penetapan tersangka:</strong> MA (24) dijerat Pasal 311 UU LLAJ tentang balapan liar dan ugal-ugalan yang membahayakan nyawa.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-clipboard-list"></i></div>
+                            <div class="info-text"><strong>Kronologi singkat:</strong> menerobos lampu merah di MH Thamrin, menabrak 2 pengendara motor. Korban dirawat di RSUD Cipto.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-clock"></i></div>
+                            <div class="info-text">Ditahan di Mapolres Jakpus, mobil diamankan sebagai barang bukti.</div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </li>
+
+        <!-- 5. Dugaan Pelecehan di KRL Rute Jakarta Kota–Bogor -->
+        <li class="news-item" id="item5">
+            <details>
+                <summary>
+                    <div class="news-content">
+                        <div class="thumbnail" id="thumb5">
+                            <img src="https://picsum.photos/id/164/100/100?grayscale&seed=krl" alt="krl" class="custom-photo" id="imgThumb5">
+                        </div>
+                        <div class="text-block">
+                            <div class="title">Dugaan Pelecehan di KRL Rute Jakarta Kota-Bogor, KCI Telusuri Pelaku</div>
+                            <div class="meta">
+                                <span class="time-ago"><i class="far fa-clock"></i> 36 menit lalu</span>
+                                <span><i class="fas fa-train"></i> transportasi</span>
+                            </div>
+                        </div>
+                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </summary>
+                <div class="detail-panel">
+                    <div class="info-lengkap">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-video"></i></div>
+                            <div class="info-text"><strong>Rekaman CCTV:</strong> KCI mengidentifikasi pria berbaju hitam yang diduga melakukan pelecehan terhadap penumpang wanita di gerbong 3.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-phone-alt"></i></div>
+                            <div class="info-text"><strong>Laporan masyarakat:</strong> Korban melapor via call center 021-121. KCI akan memberi pendampingan hukum.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-shield-alt"></i></div>
+                            <div class="info-text">Pihak KCI meningkatkan patroli di jam sibuk. Pelaku terancam blacklist seumur hidup dari seluruh layanan KRL.</div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </li>
+    </ul>
+
+    <!-- panel kontrol untuk ganti thumbnail dengan foto Anda (simulasi) -->
+    <div class="photo-controls">
+        <button class="btn-ghost" id="gantiFotoBtn"><i class="
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iklan Produk Terbaru</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
+        .product-ad {
+            width: 320px;
+            background:
+                
+                
+            </div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
