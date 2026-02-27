@@ -419,6 +419,257 @@
 
 
 
+                    
+        .info-text {
+            background: white;
+            padding: 12px 18px;
+            border-radius: 18px;
+            flex: 1;
+            color: #1f2a44;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            border: 1px solid #eef2f6;
+        }
+
+        .info-text strong {
+            color: #0b1b33;
+            font-weight: 600;
+        }
+
+        .info-text i {
+            color: #4f6f9f;
+            font-style: italic;
+        }
+
+        /* PROMOTED / label khusus */
+        .promoted-badge {
+            background: #fae6e6;
+            color: #b13e3e;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 8px;
+            border: 1px solid #f5cdcd;
+        }
+
+        .promoted-badge i {
+            font-size: 0.7rem;
+        }
+
+        /* tombol ganti foto (simulasi) — bisa diabaikan jika hanya demo, tapi biar terlihat interaktif */
+        .photo-controls {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.8rem 1.8rem 1.2rem 1.8rem;
+            border-top: 1px dashed #dce3ec;
+        }
+
+        .btn-ghost {
+            background: none;
+            border: 1px solid #becadf;
+            padding: 0.5rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            color: #1f3a6b;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-ghost:hover {
+            background: #e9eef7;
+            border-color: #8fa3c9;
+        }
+
+        .btn-ghost i {
+            font-size: 1rem;
+        }
+
+        /* foto profil custom */
+        .custom-photo {
+            object-fit: cover;
+        }
+
+        /* footer mini */
+        .attribution {
+            font-size: 0.75rem;
+            color: #919fb1;
+            padding: 0.8rem 1.8rem 1.2rem 1.8rem;
+            text-align: center;
+            border-top: 1px solid #eef2f6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="news-widget" id="newsWidget">
+
+    <!-- header sesuai contoh: aksi massa dll -->
+    <div class="news-header">
+        <h2>
+            <i class="fas fa-newspaper"></i> Caryz news
+        </h2>
+        <div class="timestamp">
+            <i class="far fa-clock"></i> 14 menit yang lalu · <span style="display: inline-flex; gap:4px"><i class="fas fa-map-pin"></i> Indramayu</span>
+        </div>
+    </div>
+
+    <!-- list berita dibuat persis seperti teks (termasuk Promoted) -->
+    <ul class="news-list">
+        <!-- 1. Aksi Massa -->
+        <li class="news-item" id="item1">
+            <details>
+                <summary>
+                    <div class="news-content">
+                        <div class="thumbnail" id="thumb1">
+                            <!-- default ilustrasi, nanti diganti via foto Anda -->
+                            <img src="https://picsum.photos/id/1015/100/100?grayscale&seed=aksi" alt="aksi massa thumbnail" class="custom-photo" id="imgThumb1">
+                        </div>
+                        <div class="text-block">
+                            <div class="title">Aksi Massa di Jalan Trunojoyo, Polda Metro Kedepankan Pelayanan Humanis</div>
+                            <div class="meta">
+                                <span class="time-ago"><i class="far fa-clock"></i> 14 menit lalu</span>
+                                <span><i class="fas fa-tag"></i> kriminal</span>
+                            </div>
+                        </div>
+                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </summary>
+                <!-- detail lebih lanjut — rapih dan enak dibaca -->
+                <div class="detail-panel">
+                    <div class="info-lengkap">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-scale-balanced"></i></div>
+                            <div class="info-text"><strong>Pendekatan humanis:</strong> Kapolda Metro Jaya langsung turun tangan, bernegosiasi dengan perwakilan massa. Tidak ada tindakan represif, malah dibagikan takjil.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-route"></i></div>
+                            <div class="info-text"><strong>Rekayasa lalu lintas:</strong> Arus dialihkan sementara, namun massa mulai membubarkan diri dengan tertib. <i>"Situasi kondusif"</i> ujar Kabid Humas.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="info-text">Update terakhir pukul 17:20 WIB – pengamanan dua lapis tetap disiagakan hingga magrib.</div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </li>
+
+        <!-- 2. Kreasi Takjil (Promoted) -->
+        <li class="news-item" id="item2">
+            <details>
+                <summary>
+                    <div class="news-content">
+                        <div class="thumbnail" id="thumb2">
+                            <img src="https://picsum.photos/id/20/100/100?seed=dessert&grayscale" alt="takjil" class="custom-photo" id="imgThumb2">
+                        </div>
+                        <div class="text-block">
+                            <div class="title">
+                                Kreasi Takjil Bulan Ramadan, AICE Got You! Dessert Master Wannabe Tawarkan Hadiah Total Puluhan Jutaan Rupiah
+                                <span class="promoted-badge"><i class="fas fa-crown"></i> PROMOTED</span>
+                            </div>
+                            <div class="meta">
+                                <span class="time-ago"><i class="far fa-clock"></i> 21 menit lalu</span>
+                                <span><i class="fas fa-fire"></i> collaboration</span>
+                            </div>
+                        </div>
+                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </summary>
+                <div class="detail-panel">
+                    <div class="info-lengkap">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-gift"></i></div>
+                            <div class="info-text"><strong>Total hadiah:</strong> Rp 45.000.000 untuk para pemenang + voucher belanja. Kompetisi dessert tingkat nasional.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-ice-cream"></i></div>
+                            <div class="info-text"><strong>Kategori:</strong> Es krim kekinian, puding, dan minuman segar. Setiap finalis mendapat bimbingan dari AICE Chef.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-clock"></i></div>
+                            <div class="info-text">Pendaftaran hingga 10 April 2025. Info lebih lanjut: <i>www.aicecream.com/takjil2025</i></div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </li>
+
+        <!-- 3. Pakai Kursi Roda, Ko Erwin Bandar Narkoba Tiba di Bareskrim -->
+        <li class="news-item" id="item3">
+            <details>
+                <summary>
+                    <div class="news-content">
+                        <div class="thumbnail" id="thumb3">
+                            <img src="https://picsum.photos/id/1043/100/100?grayscale&seed=narkoba" alt="kursi roda" class="custom-photo" id="imgThumb3">
+                        </div>
+                        <div class="text-block">
+                            <div class="title">Pakai Kursi Roda, Ko Erwin Bandar Narkoba Tiba di Bareskrim</div>
+                            <div class="meta">
+                                <span class="time-ago"><i class="far fa-clock"></i> 21 menit yang lalu</span>
+                                <span><i class="fas fa-bolt"></i> hukum</span>
+                            </div>
+                        </div>
+                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </summary>
+                <div class="detail-panel">
+                    <div class="info-lengkap">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-wheelchair"></i></div>
+                            <div class="info-text"><strong>Kondisi tersangka:</strong> Ko Erwin datang dengan kursi roda karena cedera lama, namun tim medis menyatakan fit untuk diperiksa.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-cuff"></i></div>
+                            <div class="info-text"><strong>Barang bukti:</strong> 5 kg sabu dan 200 butir ekstasi disita dari rumahnya di kawasan Pantai Indah Kapuk.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-gavel"></i></div>
+                            <div class="info-text">Ancaman hukuman maksimal: pidana mati atau seumur hidup sesuai UU Narkotika.</div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </li>
+
+        <!-- 4. Pengemudi Mobil Ugal-ugalan di Jakpus Langsung Ditahan -->
+        <li class="news-item" id="item4">
+            <details>
+                <summary>
+                    <div class="news-content">
+                        <div class="thumbnail" id="thumb4">
+                            <img src="https://picsum.photos/id/180/100/100?grayscale&seed=mobil" alt="mobil ugal" class="custom-photo" id="imgThumb4">
+                        </div>
+                        <div class="text-block">
+                            <div class="title">Pengemudi Mobil Ugal-ugalan di Jakpus Langsung Ditahan Usai Jadi Tersangka</div>
+                            <div class="meta">
+                                <span class="time-ago"><i class="far fa-clock"></i> 24 menit lalu</span>
+                                <span><i class="fas fa-car"></i> lalu lintas</span>
+                            </div>
+                        </div>
+                        <div class="expand-icon"><i class="fas fa-chevron-down"></i></div>
+                    </div>
+                </summary>
+                <div class="detail-panel">
+                    <div class="info-lengkap">
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-gavel"></i></div>
+                            <div class="info-text"><strong>Penetapan tersangka:</strong> MA (24) dijerat Pasal 311 UU LLAJ tentang balapan liar dan ugal-ugalan yang membahayakan nyawa.</div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon"><i class="fas fa-clipboard-list"></i></div>
+                            <div class="info-text"><strong>Kronologi singkat:</strong> menerobos lampu merah di MH Thamrin, menabrak 2 pengendara motor. Korban dirawat di RSUD Cipto.</div>
+                        </div>
+                        <div class="info-row">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -923,11 +1174,6 @@
     <!-- panel kontrol untuk ganti thumbnail dengan foto Anda (simulasi) -->
     <div class="photo-controls">
         <button class="btn-ghost" id="gantiFotoBtn"><i class="
-
-
-
-
-    
     <!DOCTYPE html>
 <html lang="id">
 <head>
