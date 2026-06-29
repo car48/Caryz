@@ -2269,6 +2269,121 @@ const statObs=new IntersectionObserver(entries=>{
   }
  })
 });
+    <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caryz.my.id</title>
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+        .comment-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            box-sizing: border-box;
+        }
+        .comment-submit {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 15px;
+            background: linear-gradient(45deg, #38bdf8, #ec4899);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .comment-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="comment-section">
+            <h3>Tulis Komentar</h3>
+            <input type="text" id="commentName" placeholder="Nama Kamu" class="comment-input">
+            <textarea id="commentText" placeholder="Tulis komentarmu di sini..." class="comment-input"></textarea>
+            <button id="submitBtn" class="comment-submit">Kirim Komentar</button>
+            <div id="commentsList"></div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCL6Gjpr9hJdWlRNdgwuG6h0fUrNhLCTJR0",
+            authDomain: "caryz-space.firebaseapp.com",
+            databaseURL: "https://caryz-space-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "caryz-space",
+            storageBucket: "caryz-space.firebasestorage.app",
+            messagingSenderId: "1071335666845",
+            appId: "1:1071335666845:web:360d654fd8bea99ad79074",
+            measurementId: "G-W46210T9KJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const name = document.getElementById("commentName").value;
+            const text = document.getElementById("commentText").value;
+            
+            if (name && text) {
+                push(ref(db, 'comments'), {
+                    name: name,
+                    text: text,
+                    timestamp: Date.now()
+                });
+                document.getElementById("commentName").value = '';
+                document.getElementById("commentText").value = '';
+            }
+        });
+
+        const commentsRef = ref(db, 'comments');
+        onValue(commentsRef, (snapshot) => {
+            const data = snapshot.val();
+            const list = document.getElementById("commentsList");
+            list.innerHTML = '';
+            for (let id in data) {
+                list.innerHTML += `<div class="comment-item"><strong>${data[id].name}</strong>: ${data[id].text}</div>`;
+            }
+        });
+    </script>
+</body>
+</html>
+
 document.querySelectorAll("#stats .card").forEach(x=>statObs.observe(x));
 <script type="module">
   // Import the functions you need from the SDKs you need
