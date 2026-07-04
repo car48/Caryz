@@ -1519,85 +1519,208 @@ maen ff ya kalo lagi pengen stress maen Mobile Legends bang bang mabar sama teme
     </div>
 
     <!-- Script Firebase Module -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+    <style>
+/* --- Gaya Komponen Komentar --- */
+.comment-section {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    color: white;
+    font-family: 'Poppins', Arial, sans-serif;
+}
 
-        // Konfigurasi Firebase Proyek Kamu
-        const firebaseConfig = {
-            apiKey: "AIzaSyCL6gjrP9hJdWrdNwGgWh0fUrNhLcTJR0",
-            authDomain: "caryz-space.firebaseapp.com",
-            databaseURL: "https://caryz-space-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "caryz-space",
-            storageBucket: "caryz-space.firebasestorage.app",
-            messagingSenderId: "1071335666845",
-            appId: "1:1071335666845:web:360d654fd8bea99ad79074",
-            measurementId: "G-W46210T9KJ"
-        };
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
 
-        // Inisialisasi Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+.comment-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    box-sizing: border-box;
+}
 
-        // Fungsi Kirim Data Komentar ke Firebase
-        document.getElementById('submitBtn').addEventListener('click', () => {
-            const name = document.getElementById('commentName').value;
-            const text = document.getElementById('commentText').value;
+.comment-input::placeholder {
+    color: #ddd;
+}
 
-            if (name && text) {
-                push(ref(db, 'comments'), {
-                    name: name,
-                    text: text,
-                    timestamp: Date.now() // Catat waktu kirim dalam milidetik
-                });
-                
-                // Bersihkan form setelah kirim
-                document.getElementById('commentName').value = '';
-                document.getElementById('commentText').value = '';
-            }
-        });
+.comment-submit {
+    padding: 12px;
+    background: linear-gradient(45deg, #38bdf8, #ec4899);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
 
-        // Fungsi Ambil dan Tampilkan Data dari Firebase ke Tampilan Slide
-        const commentsRef = ref(db, 'comments');
-        onValue(commentsRef, (snapshot) => {
+.comment-submit:hover {
+    transform: scale(1.02);
+}
+
+.comments-slider {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 15px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+}
+
+.comment-item {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 4px solid #38bdf8;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.comment-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+}
+
+.comment-item-name {
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+.comment-item-time {
+    font-size: 11px;
+    color: #ccc;
+}
+
+.comment-item-text {
+    font-size: 14px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* Gaya Tombol Like & Dislike */
+.btn-reaction {
+    background: rgba(255, 255, 255, 0.1); 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    color: #fff; 
+    padding: 6px 15px; 
+    border-radius: 20px; 
+    cursor: pointer; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.btn-reaction:hover {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #38bdf8;
+}
+
+.btn-like:hover { color: #38bdf8; box-shadow: 0 0 10px #38bdf844; }
+.btn-dislike:hover { color: #ec4899; box-shadow: 0 0 10px #ec489944; }
+</style>
+
+<!-- --- Struktur HTML --- -->
+<div class="comment-section">
+    <h3>Tinggalkan Ulasan Anda di Bawah Ini</h3>
+    <div class="comment-form">
+        <input type="text" id="commentName" placeholder="Nama Kamu" class="comment-input">
+        <textarea id="commentText" placeholder="Tulis Ulasan mu di sini..." class="comment-input" rows="3"></textarea>
+        <button id="submitBtn" class="comment-submit">Kirim Ulasan</button>
+    </div>
+
+    <h3>Ulasan Pengunjung</h3>
+    <div id="commentsList" class="comments-slider"></div>
+</div>
+
+<!-- --- Logika JavaScript --- -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getDatabase, ref, push, onValue, update } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCL6gjrP9hJdWrdNwGgWh0fUrNhLcTJR0",
+        databaseURL: "https://caryz-space-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "caryz-space",
+        storageBucket: "caryz-space.firebasestorage.app",
+        messagingSenderId: "1071335666845",
+        appId: "1:1071335666845:web:360d654fd8bea99ad79074"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+        const name = document.getElementById('commentName').value;
+        const text = document.getElementById('commentText').value;
+        if (name && text) {
+            push(ref(db, 'comments'), { name, text, timestamp: Date.now(), likes: 0, dislikes: 0 });
+            document.getElementById('commentName').value = '';
+            document.getElementById('commentText').value = '';
+        }
+    });
+
+    window.updateReaction = (commentId, type) => {
+        if (localStorage.getItem('reacted_' + commentId)) {
+            alert("Kamu sudah memberikan reaksi!");
+            return;
+        }
+        const commentRef = ref(db, 'comments/' + commentId);
+        onValue(commentRef, (snapshot) => {
             const data = snapshot.val();
-            const listElement = document.getElementById('commentsList');
-            listElement.innerHTML = ''; 
+            update(commentRef, { [type]: (data[type] || 0) + 1 });
+            localStorage.setItem('reacted_' + commentId, 'true');
+        }, { onlyOnce: true });
+    };
 
-            if (data) {
-                for (let id in data) {
-                    const comment = data[id];
-                    
-                    // Format waktu ke lokal Indonesia (Hari, Tanggal, Jam)
-                    let formattedTime = "Baru saja";
-                    if (comment.timestamp) {
-                        const date = new Date(comment.timestamp);
-                        formattedTime = date.toLocaleDateString('id-ID', {
-                            weekday: 'short', 
-                            year: 'numeric', 
-                            month: 'short', 
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        }) + " WIB";
-                    }
-
-                    // Tempelkan kartu komentar baru ke slider
-                    listElement.innerHTML += `
-                        <div class="comment-item">
-                            <div class="comment-item-header">
-                                <span class="comment-item-name">${comment.name}</span>
-                                <span class="comment-item-time">${formattedTime}</span>
-                            </div>
-                            <div class="comment-item-text">${comment.text}</div>
+    onValue(ref(db, 'comments'), (snapshot) => {
+        const data = snapshot.val();
+        const listElement = document.getElementById('commentsList');
+        listElement.innerHTML = '';
+        if (data) {
+            for (let id in data) {
+                const c = data[id];
+                listElement.innerHTML += `
+                    <div class="comment-item">
+                        <div class="comment-item-header">
+                            <span class="comment-item-name">${c.name}</span>
+                            <span class="comment-item-time">${new Date(c.timestamp).toLocaleDateString()}</span>
                         </div>
-                    `;
-                }
-            } else {
-                listElement.innerHTML = '<p style="font-size:14px; color:#ccc;">Belum ada Ulasan.</p>';
+                        <div class="comment-item-text">${c.text}</div>
+                        <div style="display:flex; gap:10px;">
+                            <button onclick="updateReaction('${id}', 'likes')" class="btn-reaction btn-like">
+                                👍 ${c.likes || 0}
+                            </button>
+                            <button onclick="updateReaction('${id}', 'dislikes')" class="btn-reaction btn-dislike">
+                                👎 ${c.dislikes || 0}
+                            </button>
+                        </div>
+                    </div>`;
             }
-        });
-    </script>
+        } else {
+            listElement.innerHTML = '<p style="font-size:14px; color:#ccc;">Belum ada Ulasan.</p>';
+        }
+    });
+</script>
+    
 </body>
 </html>
 
