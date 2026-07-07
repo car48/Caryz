@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>✌️ Blur Effect + Manual</title>
-  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+  <title>✌️ Blur Effect</title>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous">
+  </script>
   <style>
     * {
       margin: 0;
@@ -18,28 +19,28 @@
       align-items: center;
       min-height: 100vh;
       font-family: system-ui, sans-serif;
-      touch-action: none;
     }
     .container {
       position: relative;
       width: 100%;
       max-width: 420px;
       aspect-ratio: 9 / 16;
-      background: #111;
+      background: #000;
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
     }
-    #canvas {
+    video {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      display: block;
+      object-fit: cover;
+      transform: scaleX(-1);
+      /* mirror untuk selfie */
       filter: blur(0px);
       transition: filter 0.15s ease;
-      background: #222;
     }
     #status {
       position: absolute;
@@ -60,8 +61,6 @@
       pointer-events: none;
       user-select: none;
       white-space: nowrap;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      transition: 0.2s;
       z-index: 5;
     }
     #status .icon {
@@ -89,95 +88,12 @@
       left: 0;
       width: 100%;
       text-align: center;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.5);
       font-size: 14px;
-      font-weight: 500;
       letter-spacing: 1px;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
       pointer-events: none;
-      user-select: none;
       z-index: 5;
-    }
-    .btn-group {
-      position: absolute;
-      top: 30px;
-      right: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      z-index: 10;
-    }
-    .btn-group button {
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      color: #fff;
-      padding: 10px 14px;
-      border-radius: 40px;
-      font-size: 22px;
-      cursor: pointer;
-      touch-action: manipulation;
-      transition: 0.2s;
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .btn-group button:active {
-      transform: scale(0.9);
-    }
-    #manualBtn.active {
-      background: #ff6b6b;
-      border-color: #ff6b6b;
-      box-shadow: 0 0 20px rgba(255, 100, 100, 0.4);
-    }
-    #errorBox {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0, 0, 0, 0.85);
-      color: #ff6b6b;
-      padding: 30px 20px;
-      border-radius: 20px;
-      text-align: center;
-      z-index: 20;
-      width: 85%;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 100, 100, 0.3);
-    }
-    #errorBox h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
-    }
-    #errorBox p {
-      font-size: 14px;
-      color: #ccc;
-      margin-bottom: 20px;
-      line-height: 1.5;
-      word-break: break-word;
-    }
-    #errorBox button {
-      background: #4a6cf7;
-      border: none;
-      color: #fff;
-      padding: 12px 30px;
-      border-radius: 40px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      touch-action: manipulation;
-      margin: 5px;
-    }
-    #errorBox button:active {
-      transform: scale(0.95);
-    }
-    #errorBox .btn-secondary {
-      background: #666;
-    }
-    .hidden {
-      display: none !important;
     }
     @media (max-width: 480px) {
       .container {
@@ -194,261 +110,96 @@
 </head>
 <body>
   <div class="container" id="container">
-    <canvas id="canvas"></canvas>
-    <div id="hint">✌️ tunjukkan 2 jari (atau manual)</div>
-    <div class="btn-group">
-      <button id="switchBtn">🔄</button>
-      <button id="manualBtn">🔲</button>
-    </div>
+    <video id="video" playsinline></video>
+    <div id="hint">✌️ tunjukkan 2 jari untuk Gendeng</div>
     <div id="status">
       <span class="icon">🤚</span>
       <span id="statusText">Tidak Blur</span>
     </div>
-    <!-- Error box -->
-    <div id="errorBox" class="hidden">
-      <h3>⚠️ Gagal</h3>
-      <p id="errorMsg">Terjadi kesalahan.</p>
-      <div>
-        <button id="retryBtn">Coba Lagi</button>
-        <button id="ignoreBtn" class="btn-secondary">Abaikan</button>
-      </div>
-    </div>
   </div>
-  <video id="video" style="display:none;" playsinline></video>
 
   <script>
-    (function() {
-      const video = document.getElementById('video');
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
-      const statusText = document.getElementById('statusText');
-      const statusIcon = document.querySelector('#status .icon');
-      const container = document.getElementById('container');
-      const switchBtn = document.getElementById('switchBtn');
-      const manualBtn = document.getElementById('manualBtn');
-      const errorBox = document.getElementById('errorBox');
-      const errorMsg = document.getElementById('errorMsg');
-      const retryBtn = document.getElementById('retryBtn');
-      const ignoreBtn = document.getElementById('ignoreBtn');
+    // === Elemen ===
+    const video = document.getElementById('video');
+    const statusText = document.getElementById('statusText');
+    const statusIcon = document.querySelector('#status .icon');
+    const container = document.getElementById('container');
 
-      let isBlurred = false;
-      let manualBlur = false; // override manual
-      let facingMode = 'user';
-      let stream = null;
-      let animationId = null;
-      let handsInitialized = false;
-      let cameraReady = false;
+    let isBlurred = false;
 
-      // === Resize Canvas ===
-      function resizeCanvas() {
-        const rect = container.getBoundingClientRect();
-        canvas.width = rect.width;
-        canvas.height = rect.height;
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
+    // === Inisialisasi MediaPipe Hands ===
+    const hands = new Hands({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
+    });
 
-      // === Inisialisasi MediaPipe Hands ===
-      const hands = new Hands({
-        locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-      });
-      hands.setOptions({
-        maxNumHands: 1,
-        modelComplexity: 1,
-        minDetectionConfidence: 0.7,
-        minTrackingConfidence: 0.5
-      });
+    hands.setOptions({
+      maxNumHands: 1,
+      modelComplexity: 1,
+      minDetectionConfidence: 0.7,
+      minTrackingConfidence: 0.5
+    });
 
-      function initializeHands() {
-        return new Promise((resolve, reject) => {
-          hands.initialize().then(() => {
-            handsInitialized = true;
-            resolve();
-          }).catch(err => {
-            reject(err);
-          });
-        });
-      }
+    // Deteksi ✌️ (peace sign)
+    function isPeaceSign(landmarks) {
+      if (!landmarks || landmarks.length < 21) return false;
 
-      // Deteksi ✌️
-      function isPeaceSign(landmarks) {
-        if (!landmarks || landmarks.length < 21) return false;
-        const indexOpen = landmarks[8].y < landmarks[6].y;
-        const middleOpen = landmarks[12].y < landmarks[10].y;
-        const ringClosed = landmarks[16].y > landmarks[14].y;
-        const pinkyClosed = landmarks[20].y > landmarks[18].y;
-        return indexOpen && middleOpen && ringClosed && pinkyClosed;
-      }
+      // Telunjuk (8) dan jari tengah (12) harus lebih tinggi dari sendi pangkal (6 & 10)
+      const indexOpen = landmarks[8].y < landmarks[6].y;
+      const middleOpen = landmarks[12].y < landmarks[10].y;
+      // Jari manis (16) dan kelingking (20) harus menekuk (lebih rendah dari sendi pangkal)
+      const ringClosed = landmarks[16].y > landmarks[14].y;
+      const pinkyClosed = landmarks[20].y > landmarks[18].y;
 
-      // === Proses frame ===
-      async function processFrame() {
-        if (!video.videoWidth || !video.videoHeight) {
-          animationId = requestAnimationFrame(processFrame);
-          return;
-        }
+      return indexOpen && middleOpen && ringClosed && pinkyClosed;
+    }
 
-        // Gambar video ke canvas
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (facingMode === 'user') {
-          ctx.save();
-          ctx.scale(-1, 1);
-          ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-          ctx.restore();
-        } else {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        }
-
-        let detected = false;
-        // Jika manual aktif, langsung blur
-        if (manualBlur) {
+    // === Hasil dari MediaPipe ===
+    hands.onResults((results) => {
+      // Cek apakah ada tangan dan deteksi gesture
+      let detected = false;
+      if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
+        const landmarks = results.multiHandLandmarks[0];
+        if (isPeaceSign(landmarks)) {
           detected = true;
-        } else {
-          // Coba deteksi dengan MediaPipe jika ready
-          if (handsInitialized && cameraReady) {
-            try {
-              const results = await hands.send({ image: video });
-              if (results.multiHandLandmarks && results.multiHandLandmarks.length > 0) {
-                const landmarks = results.multiHandLandmarks[0];
-                if (isPeaceSign(landmarks)) detected = true;
-              }
-            } catch (err) {
-              console.warn('Error processing frame:', err);
-            }
-          }
-        }
-
-        // Update blur
-        if (detected) {
-          if (!isBlurred) {
-            isBlurred = true;
-            container.classList.add('blur-active');
-            statusText.innerText = manualBlur ? 'MANUAL BLUR' : 'BLUR AKTIF 🔥';
-            statusIcon.innerText = manualBlur ? '🔲' : '✌️';
-          }
-          canvas.style.filter = 'blur(20px)';
-        } else {
-          if (isBlurred) {
-            isBlurred = false;
-            container.classList.remove('blur-active');
-            statusText.innerText = 'Tidak Blur';
-            statusIcon.innerText = '🤚';
-          }
-          canvas.style.filter = 'blur(0px)';
-        }
-
-        animationId = requestAnimationFrame(processFrame);
-      }
-
-      // === Mulai kamera ===
-      async function startCamera(facing) {
-        // Hentikan yang lama
-        if (stream) {
-          stream.getTracks().forEach(t => t.stop());
-          stream = null;
-        }
-        if (animationId) {
-          cancelAnimationFrame(animationId);
-          animationId = null;
-        }
-        video.srcObject = null;
-        cameraReady = false;
-        errorBox.classList.add('hidden');
-
-        // Cek HTTPS
-        if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-          showError('Akses kamera memerlukan HTTPS atau localhost. Gunakan Live Server atau hosting HTTPS.');
-          return;
-        }
-
-        try {
-          // Pastikan model sudah siap
-          if (!handsInitialized) {
-            await initializeHands();
-          }
-
-          const constraints = {
-            video: {
-              facingMode: facing,
-              width: { ideal: 640 },
-              height: { ideal: 480 }
-            },
-            audio: false
-          };
-          stream = await navigator.mediaDevices.getUserMedia(constraints);
-          video.srcObject = stream;
-          await video.play();
-          cameraReady = true;
-
-          // Mulai loop frame
-          processFrame();
-          console.log('Kamera berhasil, facing:', facing);
-          // Tutup error jika ada
-          errorBox.classList.add('hidden');
-        } catch (err) {
-          console.error('Gagal kamera:', err);
-          showError(`Error: ${err.message || err.name || 'Unknown'}`);
         }
       }
 
-      function showError(msg) {
-        errorMsg.innerText = msg;
-        errorBox.classList.remove('hidden');
-      }
-
-      // === Switch kamera ===
-      switchBtn.addEventListener('click', () => {
-        facingMode = (facingMode === 'user') ? 'environment' : 'user';
-        startCamera(facingMode);
-      });
-
-      // === Manual Blur toggle ===
-      manualBtn.addEventListener('click', () => {
-        manualBlur = !manualBlur;
-        manualBtn.classList.toggle('active', manualBlur);
-        manualBtn.textContent = manualBlur ? '🔲' : '🔲';
-        if (manualBlur) {
-          statusText.innerText = 'MANUAL BLUR';
-          statusIcon.innerText = '🔲';
-          container.classList.add('blur-active');
-          canvas.style.filter = 'blur(20px)';
+      // Terapkan blur ke video
+      if (detected) {
+        if (!isBlurred) {
           isBlurred = true;
-        } else {
-          // kembalikan ke deteksi otomatis
-          isBlurred = false; // akan di-update di loop berikutnya
+          container.classList.add('blur-active');
+          statusText.innerText = 'BLUR AKTIF 🔥';
+          statusIcon.innerText = '✌️';
+        }
+        video.style.filter = 'blur(20px)';
+      } else {
+        if (isBlurred) {
+          isBlurred = false;
           container.classList.remove('blur-active');
-          canvas.style.filter = 'blur(0px)';
           statusText.innerText = 'Tidak Blur';
           statusIcon.innerText = '🤚';
         }
-      });
+        video.style.filter = 'blur(0px)';
+      }
+    });
 
-      retryBtn.addEventListener('click', () => {
-        startCamera(facingMode);
-      });
+    // === Mulai Kamera dengan MediaPipe Camera Utility ===
+    const camera = new Camera(video, {
+      onFrame: async () => {
+        await hands.send({ image: video });
+      },
+      width: 640,
+      height: 480,
+      facingMode: "user"
+    });
 
-      ignoreBtn.addEventListener('click', () => {
-        errorBox.classList.add('hidden');
-        // Tetap coba tanpa model? kita tetap bisa tampilkan video tanpa deteksi
-        // Tapi kita akan tetap jalankan kamera tanpa hands jika gagal model?
-        // Kita sudah handle di processFrame, jika handsInitialized false, tidak akan deteksi.
-        // Jadi kita bisa coba startCamera lagi tanpa inisialisasi model? 
-        // Namun jika error karena model, kita bisa lanjutkan dengan manual saja.
-        // Kita akan panggil startCamera yang akan mencoba inisialisasi ulang.
-        startCamera(facingMode);
-      });
-
-      // === Mulai awal ===
-      // Coba load model dan kamera
-      initializeHands().then(() => {
-        startCamera('user');
-      }).catch(err => {
-        console.error('Gagal load model:', err);
-        showError(`Gagal load model AI: ${err.message}. Anda tetap bisa pakai manual blur.`);
-        // Tetap coba kamera meski model gagal
-        startCamera('user');
-      });
-
-    })();
+    camera.start().then(() => {
+      console.log('Kamera berhasil menyala');
+    }).catch((err) => {
+      console.error('Gagal akses kamera:', err);
+      alert('Gagal akses kamera. Pastikan menggunakan HTTPS dan izinkan kamera.');
+    });
   </script>
 </body>
 </html>
