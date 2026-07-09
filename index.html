@@ -1629,6 +1629,8 @@ Berita
 
 
 
+
+
 <section id="journey">
 <h2 class="title">Perjalanan Saya</h2>
 <div class="timeline">
@@ -1637,6 +1639,9 @@ Berita
 <div><h3>🔥 Terus Berkembang</h3><p>Belajar teknologi baru dan membuat karya yang lebih baik.</p></div>
 </div>
 </section>
+
+
+
 
 <div style="margin: 0px 0 0px 26px; width: 100%; max-width: 320px; font-family: sans-serif;
             background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); 
@@ -1673,22 +1678,46 @@ Berita
             const file = e.target.files[0];
             if (!file) return;
 
+            // --- TAMBAHAN KODE ACAK KAMU DI SINI ---
+            const daftarLink = {
+                "SILAHKAN SCAN QR INI DI WEBSITE caryz.my.id AGAR BISA DI BUKA ISINYA APA": "https://perso.htmlku.my.id/RD8G",
+                "KODE_ACAK_2": "https://link-kamu-2.com",
+                "KODE_ACAK_3": "https://link-kamu-3.com",
+                "KODE_ACAK_4": "https://link-kamu-4.com",
+                "KODE_ACAK_5": "https://link-kamu-5.com"
+            };
+
             msg.innerText = "⏳ Sedang memproses data...";
             try {
                 const img = new Image();
                 img.src = URL.createObjectURL(file);
                 await img.decode();
                 const barcodes = await new BarcodeDetector().detect(img);
+                
                 if (barcodes.length > 0) {
-                    msg.innerText = " Berhasil, Tunggu Sebentar Yaaa ☺️...";
-                    window.location.replace(barcodes[0].rawValue);
+                    const hasil = barcodes[0].rawValue;
+                    if (daftarLink[hasil]) {
+                        msg.innerText = "Berhasil, Tunggu Sebentar Yaaa ☺️...";
+                        window.location.replace(daftarLink[hasil]);
+                    } else {
+                        msg.innerText = "⚠️ Barcode/QR Tidak Terdaftar, Silahkan Minta Ke Admin Karna ini Scanner Khusus Untuk Membaca QR Tertentu :)";
+                    }
                 } else {
                     msg.innerText = "⚠️ Kode tidak terbaca, silakan coba foto lain.";
                 }
-            } catch { msg.innerText = "❌ Terjadi kendala teknis."; }
+            } catch { 
+                msg.innerText = "❌ Terjadi kendala teknis."; 
+            }
         };
     </script>
 </div>
+
+
+
+
+
+
+
 
 <style>
     #btn:hover { background: rgba(255,255,255,0.2); transform: scale(1.02); }
