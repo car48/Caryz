@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caryz.my.id</title>
+    <meta name="author" content="Caryz" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://ibb.co.com/WNWcNnyH" />
+
+    <!-- ===== FONT & ICON ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <style>
+        /* ============================================================
+               GLOBAL RESET & BASE
+               ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', 'Poppins', Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at 20% 20%, #38bdf833, transparent 30%),
+                radial-gradient(circle at 80% 80%, #ec489933, transparent 30%),
+                linear-gradient(135deg, #020617, #111827, #312e81);
+            color: #fff;
+            overflow-x: hidden;
+            letter-spacing: 0;
+            background-attachment: fixed;
+        }
+
+        /* ============================================================
+               SCROLLBAR
+               ============================================================ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#38bdf8, #ec4899);
+            border-radius: 20px;
+        }
+
+        /* ============================================================
+               GLOW ORBS (background)
+               ============================================================ */
+        .glow {
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            animation: moveGlow 8s infinite alternate;
+        }
+        .glow.g1 {
+            background: #06b6d4;
+            top: -100px;
+            left: -100px;
+        }
+        .glow.g2 {
+            background: #ec4899;
+            bottom: -100px;
+            right: -100px;
+        }
+        @keyframes moveGlow {
+            to {
+                transform: translate(120px, 100px);
+            }
+        }
+
+        /* ============================================================
+               NAVIGATION
+               ============================================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 16px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff08;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 999;
+            transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        nav.scrolled {
+            background: rgba(2, 6, 23, 0.85);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+            border-bottom-color: rgba(56, 189, 248, 0.15);
+        }
+        nav .brand {
+            font-size: 22px;
+            font-weight: 800;
+            color: #38bdf8;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        nav .brand span {
+            color: #f472b6;
+        }
+
+        /* ===== JAM DI NAVBAR ===== */
+        .jam-container {
+            width: 45px;
+            height: 45px;
+            background-image: url('https://cdn.phototourl.com/free/2026-07-09-39a650fe-7d5a-4fe7-aa8a-65fe3bd3647f.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            position: relative;
+            display: inline-block;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+        }
+
+        .jam-container .jarum-jam {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 3px;
+            height: 12px;
+            background: #111;
+            transform-origin: bottom;
+            margin-left: -1.5px;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            z-index: 2;
+        }
+
+        .jam-container .jarum-menit {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 2px;
+            height: 17px;
+            background: #222;
+            transform-origin: bottom;
+            margin-left: -1px;
+            border-radius: 2px;
+            box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            z-index: 2;
+        }
+
+        .jam-container .jarum-detik {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 1.5px;
+            height: 19px;
+            background: #e74c3c;
+            transform-origin: bottom;
+            margin-left: -0.75px;
+            border-radius: 1px;
+            box-shadow: 0 0 8px rgba(231, 76, 60, 0.9);
+            z-index: 3;
+        }
+
+        /* ============================================================
+               HERO SECTION
+               ============================================================ */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: #ffffff10;
+            filter: blur(40px);
+            animation: pulseOrb 4s infinite;
+        }
+        @keyframes pulseOrb {
+            50% {
+                transform: scale(1.4);
+                opacity: 0.5;
+            }
+        }
+
+        .hero .profile {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.5);
+            animation: floatProfile 4s infinite;
+            transition: 0.5s;
+        }
+        .hero .profile:hover {
+            transform: scale(1.08) rotate(3deg);
+        }
+        @keyframes floatProfile {
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero h3 {
+            max-width: 800px;
+            margin: 20px auto;
+            font-size: clamp(18px, 2.2vw, 24px);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        .hero h3 span {
+            font-weight: 700;
+        }
+
+        .hero .typewriter {
+            font-size: 20px;
+            font-weight: 300;
+            height: 30px;
+            color: #38bdf8;
+        }
+        .cursor {
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero::after {
+            content: "Scroll kebawah untuk melihat lainya, ✦";
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #ffffff99;
+            animation: bounceText 2s infinite;
+        }
+        @keyframes bounceText {
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        /* ============================================================
+               UTILITY & BUTTON
+               ============================================================ */
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 35px;
+            border-radius: 40px;
+            background: linear-gradient(45deg, #06b6d4, #ec4899);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 10px 25px #0005;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            transform-origin: center;
+        }
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+        .btn:active {
+            transform: scale(0.94);
+        }
+        .btn::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: translateX(-120%);
+            transition: 0.6s;
+        }
+        .btn:hover::after {
+            transform: translateX(120%);
+        }
+
+        /* ============================================================
+               SECTION & CARD
+               ============================================================ */
+        section {
+            padding: 90px 10%;
+            scroll-margin-top: 90px;
+            animation: fadeUp 0.8s ease both;
+        }
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            text-align: center;
+            font-size: clamp(30px, 5vw, 45px);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(90deg, #38bdf8, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .title::after {
+            content: "";
+            display: block;
+            width: 70px;
+            height: 4px;
+            margin: 15px auto 0;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #38bdf8, #ec4899);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #ffffff14;
+            border: 1px solid #ffffff25;
+            padding: 25px;
+            border-radius: 28px;
+            backdrop-filter: blur(18px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+            transition: 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            isolation: isolate;
+        }
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #38bdf8;
+            box-shadow: 0 25px 60px #0008;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            right: -50px;
+            top: -50px;
+            background: #38bdf822;
+            border-radius: 50%;
+        }
+        .card:hover::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            background: linear-gradient(120deg, transparent, #38bdf833, transparent);
+            animation: scanShine 1s;
+            pointer-events: none;
+        }
+        @keyframes scanShine {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(100%);
+            }
+        }
+
+        .card h2,
+        .card h3 {
+            font-weight: 650;
+            background: linear-gradient(90deg, #fff, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: 0.3s;
+        }
+        .card:hover h2,
+        .card:hover h3 {
+            transform: translateX(5px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 500;
+            background: #ffffff20;
+            margin-top: 10px;
+            color: #38bdf8;
+        }
+
+        /* ============================================================
+               TIMELINE
+               ============================================================ */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .timeline div {
+            padding: 20px;
+            border-left: 3px solid #38bdf8;
+            background: #ffffff10;
+            border-radius: 15px;
+            transition: 0.4s;
+        }
+        .timeline div:hover {
+            transform: translateX(12px);
+            background: #ffffff20;
+        }
+
+        /* ============================================================
+               FAQ
+               ============================================================ */
+        .faq-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .faq-item {
+            background: #ffffff14;
+            border: 1px solid #ffffff25;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            backdrop-filter: blur(15px);
+        }
+        .faq-question {
+            padding: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        .faq-question:hover {
+            background: #ffffff10;
+        }
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            color: #ffffffb3;
+            font-size: 15px;
+            border-top: 1px solid transparent;
+        }
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 200px;
+            border-top: 1px solid #ffffff25;
+        }
+        .faq-toggle {
+            transition: transform 0.3s;
+        }
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* ============================================================
+               QR SCANNER BOX
+               ============================================================ */
+        .qr-box {
+            margin: 20px 0 0 26px;
+            width: 100%;
+            max-width: 320px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            color: #fff;
+        }
+        .qr-box .label-btn {
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .qr-box .label-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+        }
+        .qr-box .msg {
+            margin-top: 14px;
+            font-size: 10px;
+            height: 16px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* ============================================================
+               COMMENT SECTION
+               ============================================================ */
+        .comment-section {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            color: #fff;
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .comment-input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            box-sizing: border-box;
+        }
+        .comment-input::placeholder {
+            color: #ddd;
+        }
+        .comment-submit {
+            padding: 12px;
+            background: linear-gradient(45deg, #38bdf8, #ec4899);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .comment-submit:hover {
+            transform: scale(1.02);
+        }
+        .comments-slider {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
+        }
+        .comment-item {
+            flex: 0 0 85%;
+            scroll-snap-align: start;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #38bdf8;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .comment-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+        .comment-item-name {
+            font-weight: bold;
+            color: #38bdf8;
+        }
+        .comment-item-time {
+            font-size: 11px;
+            color: #ccc;
+        }
+        .comment-item-text {
+            font-size: 14px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        /* ============================================================
+               NEWS TABLE (berita)
+               ============================================================ */
+        .news-container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+        .news-header {
+            background: #1e3a8a;
+            color: #fff;
+            padding: 20px;
+            border-radius: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        .news-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        .news-header p {
+            margin-top: 6px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        #news-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .news-row {
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+        .news-row .img-cell {
+            padding: 10px 12px 10px 0;
+            width: 60px;
+        }
+        .news-row .img-cell img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            display: block;
+            background: #eee;
+        }
+        .news-row .text-cell {
+            padding: 10px 0;
+        }
+        .news-row .text-cell a {
+            text-decoration: none;
+            color: #222;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ============================================================
+               BACK TO TOP
+          ============================================================ */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #06b6d4, #ec4899);
+            color: #fff;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+        }
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            transform: translateY(-8px) rotate(10deg);
+        }
+
+        /* ============================================================
+               CLICK PARTICLE
+               ============================================================ */
+        .click-particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #38bdf8;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: explode 0.6s ease-out forwards;
+        }
+        @keyframes explode {
+            0% {
+                width: 0px;
+                height: 0px;
+                opacity: 1;
+            }
+            100% {
+                width: 40px;
+                height: 40px;
+                opacity: 0;
+                border: 2px solid #ec4899;
+            }
+        }
+
+        /* ============================================================
+               TOAST NOTIFICATION
+               ============================================================ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(17, 24, 39, 0.9);
+            color: #38bdf8;
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: 1px solid #38bdf8;
+            font-size: 14px;
+            z-index: 99999;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        /* ============================================================
+               PROGRESS BAR (scroll)
+               ============================================================ */
+        .progress-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #38bdf8, #ec4899);
+            z-index: 99999;
+            width: 0%;
+        }
+
+        /* ============================================================
+               VISITOR POPUP
+               ============================================================ */
+        #visitorPopup {
+            position: fixed;
+            right: 20px;
+            bottom: 90px;
+            background: #111827dd;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid #ffffff25;
+            backdrop-filter: blur(15px);
+            z-index: 999;
+            animation: popupIn 0.6s;
+        }
+        @keyframes popupIn {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+               LOADING SCREEN
+               ============================================================ */
+        .loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #020617;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            flex-direction: column;
+            gap: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loading-screen .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0.88);
+            transition: opacity 3.0s cubic-bezier(0.1, 0.85, 0.2, 1), transform 3.0s cubic-bezier(0.1, 0.85, 0.2, 1);
+        }
+        .loading-screen .loading-content img {
+            width: 190px;
+            height: auto;
+            object-fit: contain;
+        }
+        .loading-screen .loading-text {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            color: #38bdf8;
+            margin-top: 18px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+        }
+        .loading-screen .loading-dots {
+            display: inline-block;
+            width: 25px;
+            text-align: left;
+            margin-left: 2px;
+        }
+
+        /* ============================================================
+               FOOTER
+               ============================================================ */
+        footer {
+            padding: 40px 8% 30px;
+            text-align: center;
+            background: rgba(2, 6, 23, 0.6);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 20px;
+        }
+        footer .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 16px;
+        }
+        footer .footer-socials a {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 22px;
+            transition: 0.3s;
+        }
+        footer .footer-socials a:hover {
+            color: #38bdf8;
+            transform: translateY(-4px);
+        }
+        footer p {
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ============================================================
+               HIDDEN LINK BUTTON (easter egg)
+               ============================================================ */
+        .hidden-link-btn {
+            position: fixed;
+            left: 12px;
+            bottom: 12px;
+            width: 18px;
+            height: 18px;
+            opacity: 0.35;
+            border-radius: 50%;
+            background: #ffffff20;
+            border: 1px solid #ffffff50;
+            z-index: 9999;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .hidden-link-btn:hover {
+            opacity: 1;
+            transform: scale(1.3);
+            background: #38bdf8;
+        }
+
+        /* ============================================================
+               RESPONSIVE TWEAKS
+               ============================================================ */
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 38px;
+            }
+            .hero h3 {
+                font-size: 17px;
+            }
+            .hero .profile {
+                width: 140px;
+                height: 140px;
+            }
+            nav {
+                padding: 15px 5%;
+            }
+            section {
+                padding: 70px 6%;
+            }
+            .title {
+                font-size: 32px;
+            }
+        }
+
+        /* ============================================================
+               MISC: extra polish
+               ============================================================ */
+        .feature-chip {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .feature-chip span {
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: #ffffff14;
+            border: 1px solid #ffffff25;
+            backdrop-filter: blur(10px);
+            font-size: 14px;
+            animation: floatChip 3s infinite;
+        }
+        @keyframes floatChip {
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        /* gaya tambahan buat ikon biar rapi */
+        .card h2 i,
+        .card h3 i,
+        .timeline h3 i,
+        .faq-question i,
+        .news-header h1 i {
+            margin-right: 8px;
+            color: #38bdf8;
+        }
+        .news-header h1 i {
+            color: #fff;
+        }
+        .qr-box i,
+        footer i {
+            margin-right: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- GLOW ORBS -->
+    <div class="glow g1"></div>
+    <div class="glow g2"></div>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="navbar">
+        <div class="brand">Cay<span>rz</span></div>
+        <!-- Jam Analog Pake Gambar (diposisi kanan) -->
+        <div class="jam-container" style="
+            width: 46px; 
+            height: 46px; 
+            background-image: url('https://cdn.phototourl.com/free/2026-07-09-f46be7bd-2290-4727-b599-41d8e98bdaa0.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 50%; 
+            position: relative; 
+            display: inline-block;
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-left: auto;
+            margin-right: 5px;
+            flex-shrink: 0;
+        ">
+            <div id="h" style="position: absolute; bottom: 50%; left: 50%; width: 3px; height: 12px; background: #111; transform-origin: bottom; margin-left: -1.5px; border-radius: 2px; box-shadow: 0 0 5px rgba(255,255,255,0.5); z-index: 2;"></div>
+            <div id="m" style="position: absolute; bottom: 50%; left: 50%; width: 2px; height: 17px; background: #222; transform-origin: bottom; margin-left: -1px; border-radius: 2px; box-shadow: 0 0 5px rgba(255,255,255,0.5); z-index: 2;"></div>
+            <div id="s" style="position: absolute; bottom: 50%; left: 50%; width: 1.5px; height: 19px; background: #e74c3c; transform-origin: bottom; margin-left: -0.75px; border-radius: 1px; box-shadow: 0 0 8px rgba(231,76,60,0.9); z-index: 3;"></div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <div class="hero">
+        <div>
+            <img class="profile" src="https://cdn.phototourl.com/free/2026-07-05-f27ed8a1-7b58-4715-9440-b776901453f7.png" alt="Profile" />
+            <h3>
+                lebih suka liat gimana sesuatu bekerja daripada cuma dengerin teorinya Kalau penasaran,
+                <span>langsung nyoba ulik sampai ngerti.</span>
+            </h3>
+            <p id="typewriter" class="typewriter cursor"></p>
+        </div>
+    </div>
+      <!-- ===== ABOUT / PROFIL ===== -->
+    <section id="about" style="max-width:450px; margin:0 auto; padding:20px; text-align:center;">
+        <h2 style="font-size:24px; color:#38bdf8; margin-bottom:20px;">Hello! I'm Cardi</h2>
+        <div style="background:rgba(255,255,255,0.03); padding:25px; border-radius:20px; border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px);">
+            <p style="line-height:1.6; color:#cbd5e1; font-size:14px; margin-bottom:20px;">
+                Lahir di kedokan bunder, Indramayu Pada Tgl 20 mei 2008,
+                Saya masih pelajar di SMK jurusan TKJ, karna itu saya ingin belajar lebih dalam lagi tentang Html,CSS, Javascript dan tentang dunia teknologi.
+            </p>
+            <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+                <div onclick="triggerToast('domisili')" style="padding:10px 15px; border-radius:12px; border:1px solid #ffffff15; background:rgba(255,255,255,0.03); cursor:pointer; transition:0.3s;">
+                    <span style="font-size:9px; color:#38bdf8; display:block; font-weight:bold;">DOMISILI</span>
+                    <span style="font-size:13px; font-weight:600;">Indramayu</span>
+                </div>
+                <div onclick="triggerToast('minat')" style="padding:10px 15px; border-radius:12px; border:1px solid #ffffff15; background:rgba(255,255,255,0.03); cursor:pointer; transition:0.3s;">
+                    <span style="font-size:9px; color:#f472b6; display:block; font-weight:bold;">MINAT</span>
+                    <span style="font-size:13px; font-weight:600;">Tech & Digital</span>
+                </div>
+                <div onclick="triggerToast('status')" style="padding:10px 15px; border-radius:12px; border:1px solid #ffffff15; background:rgba(255,255,255,0.03); cursor:pointer; transition:0.3s;">
+                    <span style="font-size:9px; color:#a855f7; display:block; font-weight:bold;">STATUS</span>
+                    <span style="font-size:13px; font-weight:600;">Pelajar</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast & About -->
+    <div id="popup-toast-stats" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.95); color:#fff; padding:12px 20px; border-radius:15px; border:1px solid rgba(255,255,255,0.1); font-size:12px; transition:opacity 0.5s ease; z-index:999; backdrop-filter:blur(20px); width:80%; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.5); opacity:0; pointer-events:none;">
+        <span id="toast-stats-text"></span>
+    </div>
+
+    <!-- ===== STATS ===== -->
+    <section id="stats" style="margin: 30px auto; padding: 10px; max-width: 400px;">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+
+            <div class="card-stats" id="card-daily" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; padding: 15px; display: flex; align-items: center; gap: 15px; border-left: 4px solid #38bdf8; cursor: pointer; transition: 0.3s;">
+                <i class="fa-solid fa-code" style="font-size: 24px; color: #38bdf8;"></i>
+                <div>
+                    <h1 style="font-size: 16px; font-weight: 700; color: #fff; margin: 0;">Daily Activity</h1>
+                    <p style="font-size: 10px; color: rgba(255,255,255,0.5); margin: 0; text-transform: uppercase; letter-spacing: 1px;">Coding, Networking, & Pushing</p>
+                </div>
+            </div>
+
+            <div class="card-stats" id="card-ml" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; padding: 15px; display: flex; align-items: center; gap: 15px; border-left: 4px solid #f472b6; cursor: pointer; transition: 0.3s;">
+                <i class="fa-solid fa-gamepad" style="font-size: 24px; color: #f472b6;"></i>
+                <div>
+                    <h1 style="font-size: 16px; font-weight: 700; color: #fff; margin: 0;">OTW Immortal</h1>
+                    <p style="font-size: 10px; color: rgba(255,255,255,0.5); margin: 0; text-transform: uppercase; letter-spacing: 1px;">Misi Push Rank Masih Berlanjut</p>
+                </div>
+            </div>
+
+            <div class="card-stats" id="card-dream" style="background: rgba(255,255,255,0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.08); border-radius: 15px; padding: 15px; display: flex; align-items: center; gap: 15px; border-left: 4px solid #a855f7; cursor: pointer; transition: 0.3s;">
+                <i class="fa-solid fa-cloud" style="font-size: 24px; color: #a855f7;"></i>
+                <div>
+                    <h1 style="font-size: 16px; font-weight: 700; color: #fff; margin: 0;">1 Juta Khayalan</h1>
+                    <p style="font-size: 10px; color: rgba(255,255,255,0.5); margin: 0; text-transform: uppercase; letter-spacing: 1px;">Menata Masa Depan yang Belum Pasti</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOAST UNTUK STATS -->
+        <div id="toast-stats" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(15,23,42,0.95); color: #fff; padding: 15px 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.1); font-size: 13px; transition: opacity 0.5s ease; z-index: 9999; backdrop-filter: blur(20px); width: 80%; text-align: center; line-height: 1.5; box-shadow: 0 10px 30px rgba(0,0,0,0.5); opacity: 0; pointer-events: none;">
+            <span id="toast-stats-text"></span>
+        </div>
+    </section>
+
+    <script>
+        (function() {
+            const toast = document.getElementById('toast-stats');
+            const toastText = document.getElementById('toast-stats-text');
+            let timer;
+
+            const content = {
+                daily: [
+                    "Setiap hari sibuk ngoprek jaringan dan belajar command line. Jadi anak TKJ emang harus betah di depan layar!",
+                    "Rutinitas gue? Ngoding, ngerjain tugas sekolah, terus lanjut riset tentang keamanan jaringan. Produktif adalah jalan ninja gue.",
+                    "Lagi fokus ngembangin website personal gue sendiri. Dari setting DNS, GitHub Pages, sampe troubleshooting HTTPS, semua gue kerjain sendiri!"
+                ],
+                ml: [
+                    "Jujur, push rank itu pelarian paling asik pas lagi bosen ngoding. Target tetep: Mythic Immortal!",
+                    "Mabar sama temen-temen itu emang hiburan utama. Menang atau kalah yang penting seru-seruan bareng.",
+                    "Lagi nyari settingan terbaik buat hero andalan. Pokoknya target Immortal harga mati!"
+                ],
+                dream: [
+                    "Khayalan itu perlu biar hidup nggak garing. Mulai dari pengen punya website traffic jutaan, sampai keliling dunia bawa motor sendiri.",
+                    "Mungkin sekarang masih tahap ngimpi, tapi siapa yang tahu ke depannya? Yang penting terus konsisten ngembangin diri.",
+                    "Cita-cita gue sederhana: bisa bermanfaat buat orang sekitar, sukses di karier IT, dan jajan apa pun tanpa liat harga. Aamiin!"
+                ]
+            };
+
+            function showToast(key) {
+                if (!toast || !toastText) return;
+                clearTimeout(timer);
+                const list = content[key];
+                const msg = list[Math.floor(Math.random() * list.length)];
+                toastText.innerText = msg;
+                toast.style.opacity = '1';
+                toast.style.pointerEvents = 'auto';
+                timer = setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.pointerEvents = 'none';
+                }, 5000);
+            }
+
+            document.getElementById('card-daily').addEventListener('click', function() { showToast('daily'); });
+            document.getElementById('card-ml').addEventListener('click', function() { showToast('ml'); });
+            document.getElementById('card-dream').addEventListener('click', function() { showToast('dream'); });
+        })();
+    </script>
+
+    <!-- ===== QUOTE SECTION ===== -->
+    <section id="quote-section" style="padding:40px 10%; text-align:center;">
+        <div class="card" style="max-width:800px; margin:0 auto; background:#ffffff0a; padding:30px; border-style:dashed;">
+            <p id="quoteText" style="font-size:18px; font-style:italic; color:#ffffffd0;">"Memuat kutipan hari ini..."</p>
+            <span id="quoteAuthor" style="display:block; margin-top:10px; font-size:13px; color:#f472b6; font-weight:600;"></span>
+        </div>
+    </section>
+
+    <!-- ===== JOURNEY / TIMELINE ===== -->
+    <section id="journey">
+        <h2 class="title">Perjalanan Saya</h2>
+        <div class="timeline">
+            <div><h3><i class="fas fa-rocket"></i> Mulai Coding</h3><p>Belajar membuat website dan memahami dasar pemrograman.</p></div>
+            <div><h3><i class="fas fa-folder-open"></i> Membuat Project</h3><p>Mengembangkan desain digital dan website interaktif.</p></div>
+            <div><h3><i class="fas fa-fire"></i> Terus Berkembang</h3><p>Belajar teknologi baru dan membuat karya yang lebih baik.</p></div>
+        </div>
+    </section>
+
+    <!-- ===== QR SCANNER ===== -->
+    <div class="qr-box">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 3H3v2" /><path d="M19 3h2v2" /><path d="M21 19v2h-2" /><path d="M3 19v2h2" />
+                <line x1="8" y1="8" x2="16" y2="8" /><line x1="8" y1="12" x2="16" y2="12" /><line x1="8" y1="16" x2="16" y2="16" />
+            </svg>
+            <h3 style="margin:0; font-size:20px; letter-spacing:0.5px;">Scanner barcode/QR</h3>
+        </div>
+       <p style="margin:0 0 16px 0; font-size:11px; opacity:0.6; line-height:1.4;">
+    upload gambar QR nya di sini ya 👁️👄👁️
+</p>
+        <input type="file" id="qrFile" accept="image/*" style="display:none" />
+        <label for="qrFile" id="qrLabel" class="label-btn">Pilih Foto Barcode</label>
+        <div id="qrMsg" class="msg">Siap memindai...</div>
+    </div>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience">
+        <h2 class="title">Pengalaman & Fokus</h2>
+        <div class="grid">
+            <div class="card">
+                <h2><i class="fas fa-scroll"></i> pengalaman</h2>
+                <br />
+                <p>Membangun website modern dengan tampilan responsif, animasi interaktif, dan desain yang nyaman digunakan.</p>
+                <span class="badge">HTML • CSS • JavaScript</span>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-bullseye"></i> Tujuan Saya</h2>
+                <br />
+                <p>Terus belajar teknologi baru, dan hidup lebih baik kedepannya sampai di suatu masa saya menemukan pendamping hidup saya ( itupun kalo gua masi idup panjang sampe tua 🗿).</p>
+                <span class="badge">Hidup seperti Lerry • WNI</span>
+            </div>
+            <div class="card">
+                <h2><i class="fas fa-star"></i> Keunggulan</h2>
+                <br />
+                <p>Menggabiskan beras di rumah dengan cepat dan membelajakan uang hasil kerja orang tua saya karna kasian mereka cape cape bekerja tapi anaknya tidak menghabiskan nya  .</p>
+                <span class="badge">beban negara • pengangguran</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq">
+        <h2 class="title">Sering Ditanyakan</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span> Apakah kamu sudah punya pacar/pasangan?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    untuk jawabanya bisa tanya langsung lewat chat pribadi, karna pertayaan ini menyangkut privasi😁.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Berapa lama proses pembuatan website?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Waktu pengerjaan bervariasi tergantung tingkat kerumitan, biasanya berkisar antara  hingga 2 bulan kerja setelah data/materi website dikirimkan lengkap.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Apakah kamu sudah imortal?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    Sayangnya untuk sekarang masih blom, masih stak hig rank honnor, karna belum ada waktu untuk ngepus nya mungkin kalo bisa kita mabar biar ngepus bareng kitaa.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFaq(this)">
+                    <span>Lu kalo lagi gabut atau ada waktu senggang ngapain aja sieh?</span>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    maen ff ya kalo lagi pengen stress maen Mobile Legends bang bang, mabar sama temen anomali🗿.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KOMENTAR (SLIDE) ===== -->
+    <section style="padding:30px 4%;">
+        <div class="comment-section">
+            <h3>Tinggalkan Ulasan Anda di Bawah Ini</h3>
+            <div class="comment-form">
+                <input type="text" id="commentName" placeholder="Nama Kamu" class="comment-input" />
+                <textarea id="commentText" placeholder="Tulis Ulasan mu di sini..." class="comment-input" rows="3"></textarea>
+                <button id="submitBtn" class="comment-submit">Kirim Ulasan</button>
+            </div>
+            <h3>Ulasan Pengunjung</h3>
+            <div id="commentsList" class="comments-slider"></div>
+        </div>
+    </section>
+
+    <!-- ===== BERITA TERKINI ===== -->
+    <section style="padding:20px 4%;">
+        <div style="background: #ffffff; border-radius: 20px; padding: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+
+            <!-- Header Berita (biru) -->
+            <div style="background: #1e3a8a; color: #fff; padding: 27px; border-radius: 16px; text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size: 28px; font-weight: 700; margin: 0;"><i class="fas fa-newspaper"></i> Caryz News</h1>
+                <p style="margin: 6px 0 0; font-size: 13px; opacity: 0.9;">Berita Terbaru Di Seluruh Dunia • Ter Update</p>
+            </div>
+
+            <!-- Tempat daftar berita -->
+            <div id="news-box" style="background: #ffffff; border-radius: 12px; padding: 5px 0;">
+                Memuat berita...
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">▲</button>
+
+    <!-- ===== HIDDEN LINK ===== -->
+    <a href="https://akunsecret208-web.github.io/website-/" target="_blank" class="hidden-link-btn" aria-label="link"></a>
+    
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <h4>contact saya <i class="fas fa-arrow-down"></i></h4>
+        <div class="footer-socials">
+            <a href="https://wa.me/qr/GCW6Z5IMFNU3C1" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/caryz_208?igsh=MWYzMm1kMGFxbGswYg==" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com/cardi.cardi.14473426" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        </div>
+        <p>© 2026-2027 My Website :)</p>
+    </footer>
+
+    <!-- ============================================================
+     JAVASCRIPT
+    ============================================================ -->
+    <script>
+        // ========== JAM ANALOG ==========
+        function updateClock() {
+            const d = new Date();
+            const h = d.getHours();
+            const m = d.getMinutes();
+            const s = d.getSeconds();
+            document.getElementById("h").style.transform = "rotate(" + (h * 30 + m / 2) + "deg)";
+            document.getElementById("m").style.transform = "rotate(" + (m * 6) + "deg)";
+            document.getElementById("s").style.transform = "rotate(" + (s * 6) + "deg)";
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ========== TOAST UNTUK ABOUT ==========
+        const toastAbout = document.getElementById('popup-toast-stats');
+        const toastAboutText = document.getElementById('toast-stats-text');
+        let toastTimer;
+
+        const contentAbout = {
+            domisili: ["Kedokan Bunder City!", "Asli wong Indramayu!", "Home sweet home di Indramayu."],
+            minat: ["Coding & Gadgets", "Tech enthusiast banget!", "Lagi mendalami dunia digital."],
+            status: ["Stay Hungry, Stay Foolish", "Always Growing!", "Siap belajar hal baru."]
+        };
+
+        function triggerToast(key) {
+            clearTimeout(toastTimer);
+            const list = contentAbout[key];
+            toastAboutText.innerText = list[Math.floor(Math.random() * list.length)];
+            toastAbout.style.opacity = '1';
+            toastAbout.style.pointerEvents = 'auto';
+            toastTimer = setTimeout(() => {
+                toastAbout.style.opacity = '0';
+                toastAbout.style.pointerEvents = 'none';
+            }, 5000);
+        }
+
+        // ========== TYPEWRITER ==========
+        const words = ["おかえり", "歡迎光臨", "Benvenuti", "Добро пожаловать", "Herzlich willkommen", "أهلاً وسهلاً",
+            "Chào mừng", " ยินดีต้อนรับ", "ꦢꦸꦒꦶꦥꦿꦩꦶꦭ", "ᮞᮥᮌᮨᮀ ᮞᮥᮙ᮪ᮕᮤᮀ", "स्वागत है", "ברוך הבא", "Selamat Datang",
+            "欢迎光临", "환영합니다", "Bem-vindo", "Καλώς ήρθατε", "እንኳን ደህና መጣችሁ", "welcome"
+        ];
+        let wordIndex = 0,
+            charIndex = 0,
+            isDeleting = false;
+
+        function typeEffect() {
+            const el = document.getElementById("typewriter");
+            if (!el) return;
+            const current = words[wordIndex];
+            if (isDeleting) {
+                el.innerHTML = current.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                el.innerHTML = current.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            let speed = isDeleting ? 50 : 150;
+            if (!isDeleting && charIndex === current.length) {
+                speed = 1500;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                speed = 500;
+            }
+            setTimeout(typeEffect, speed);
+        }
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
+        // ========== QUOTE ==========
+        const quotes = [
+            { text: "Bukan bahasa pemrogramannya yang hebat, tapi bagaimana logikamu menyelesaikannya.",
+            author: "Anonim" },
+            { text: "Kode yang rapi dan bersih adalah tanda dari seorang developer yang peduli.",
+            author: "Robert C. Martin" },
+            { text: "Jangan takut gagal, takutlah jika kamu tidak pernah mencoba baris kode pertama.",
+            author: "Tech Mind" },
+            { text: "Satu-satunya cara untuk belajar pemrograman baru adalah dengan menulis program di dalamnya.",
+                author: "Dennis Ritchie" },
+            { text: "Komputer itu bodoh, mereka hanya melakukan persis apa yang kita perintahkan.",
+            author: "Kutipan Dev" }
+        ];
+
+        function generateQuote() {
+            const idx = Math.floor(Math.random() * quotes.length);
+            const q = quotes[idx];
+            document.getElementById("quoteText").innerHTML = '"' + q.text + '"';
+            document.getElementById("quoteAuthor").innerHTML = "— " + q.author;
+        }
+        generateQuote();
+
+        // ========== FAQ TOGGLE ==========
+        function toggleFaq(element) {
+            const item = element.parentElement;
+            document.querySelectorAll('.faq-item').forEach(i => {
+                if (i !== item) i.classList.remove('active');
+            });
+            item.classList.toggle('active');
+        }
+
+        // ========== BACK TO TOP ==========
+        const btnBack = document.getElementById("backToTop");
+        window.addEventListener("scroll", function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btnBack.classList.add("show");
+            } else {
+                btnBack.classList.remove("show");
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        // ========== CLICK PARTICLE ==========
+        document.addEventListener("click", function(e) {
+            const p = document.createElement("div");
+            p.className = "click-particle";
+            p.style.left = e.clientX + "px";
+            p.style.top = e.clientY + "px";
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 600);
+        });
+
+        // ========== PROGRESS BAR ==========
+        const bar = document.createElement("div");
+        bar.className = "progress-cursor";
+        document.body.appendChild(bar);
+        window.addEventListener("scroll", function() {
+            const h = document.documentElement;
+            const percent = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+            bar.style.width = percent + "%";
+        });
+
+        // ========== NAVBAR SCROLL ==========
+        window.addEventListener("scroll", function() {
+            document.querySelector("nav").classList.toggle("scrolled", window.scrollY > 50);
+        });
+
+        // ========== CARD 3D HOVER ==========
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', function(e) {
+                const r = this.getBoundingClientRect();
+                const x = e.clientX - r.left;
+                const y = e.clientY - r.top;
+                this.style.transform =
+                    `perspective(600px) rotateX(${(y - r.height/2)/25}deg) rotateY(${(x - r.width/2)/25}deg) translateY(-8px)`;
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = "";
+            });
+            // tap effect
+            card.addEventListener('click', function() {
+                this.style.transition = ".15s";
+                this.style.transform = "scale(.97)";
+                setTimeout(() => this.style.transform = "", 150);
+            });
+        });
+
+        // ========== SMOOTH REVEAL ==========
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.animation = "fadeUp .8s ease";
+                }
+            });
+        });
+        document.querySelectorAll(".card, section .title").forEach(el => obs.observe(el));
+
+        // ========== VISITOR POPUP ==========
+        setTimeout(() => {
+            const pop = document.createElement("div");
+            pop.id = "visitorPopup";
+            pop.innerHTML = "✨ Glad You're Here 😚";
+            document.body.appendChild(pop);
+            setTimeout(() => pop.remove(), 4000);
+        }, 1200);
+
+        // ========== TOAST RANDOM (stalking) ==========
+        setTimeout(() => {
+            const msgs = ["🤨🫵🏻 you mau stalking yakkk", "👁️👄👁️ mau ngapain kak", "hayolooo ngapain lu😭🫵🏻"];
+            const t = document.createElement("div");
+            t.className = "toast";
+            t.innerHTML = msgs[Math.floor(Math.random() * msgs.length)];
+            document.body.appendChild(t);
+            setTimeout(() => t.classList.add("show"), 100);
+            setTimeout(() => t.remove(), 3500);
+        }, 5000);
+
+        // ========== QR SCANNER ==========
+        document.getElementById('qrFile').onchange = async function(e) {
+            const msg = document.getElementById('qrMsg');
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const daftarLink = {
+                "SILAHKAN SCAN QR INI DI WEBSITE caryz.my.id AGAR BISA DI BUKA ISINYA APA": "https://perso.htmlku.my.id/RD8G",
+                "KODE_ACAK_2": "https://link-kamu-2.com",
+                "KODE_ACAK_3": "https://link-kamu-3.com",
+                "KODE_ACAK_4": "https://link-kamu-4.com",
+                "KODE_ACAK_5": "https://link-kamu-5.com"
+            };
+
+            msg.innerText = "⏳ Sedang memproses data...";
+            try {
+                const img = new Image();
+                img.src = URL.createObjectURL(file);
+                await img.decode();
+                const barcodes = await new BarcodeDetector().detect(img);
+                if (barcodes.length > 0) {
+                    const hasil = barcodes[0].rawValue;
+                    if (daftarLink[hasil]) {
+                        msg.innerText = "Berhasil, Tunggu Sebentar Yaaa ☺️...";
+                        window.location.replace(daftarLink[hasil]);
+                    } else {
+                        msg.innerText = "⚠️ Barcode/QR Tidak Terdaftar, Silahkan Minta Ke Admin Karna ini Scanner Khusus Untuk Membaca QR Tertentu :)";
+                    }
+                } else {
+                    msg.innerText = "⚠️ Kode tidak terbaca, silakan coba foto lain.";
+                }
+            } catch {
+                msg.innerText = "❌ Terjadi kendala teknis. Buka Web ini lewat chrome/browser langsung agar bisa ter Scan";
+            }
+        };
+
+        // ========== BERITA (RSS) ==========
+        const newsUrl = "https://api.rss2json.com/v1/api.json?rss_url=https://www.antaranews.com/rss/top-news.xml";
+
+        async function loadNews() {
+            try {
+                const res = await fetch(newsUrl);
+                const data = await res.json();
+                const box = document.getElementById('news-box');
+                let tableHTML = `<table id="news-table">`;
+                data.items.slice(0, 8).forEach(item => {
+                    const img = item.enclosure.link || 'https://via.placeholder.com/60/eee/999?text=Berita';
+                    tableHTML += `
+                            <tr class="news-row">
+                                <td class="img-cell"><img src="${img}" onerror="this.src='https://via.placeholder.com/60/eee/999?text=Berita'"></td>
+                                <td class="text-cell"><a href="${item.link}" target="_blank">${item.title}</a></td>
+                            </tr>
+                        `;
+                });
+                tableHTML += `</table>`;
+                box.innerHTML = tableHTML;
+            } catch (e) {
+                document.getElementById('news-box').innerHTML = "<div style='padding:20px; text-align:center;'>Gagal memuat berita.</div>";
+            }
+        }
+        loadNews();
+        setInterval(loadNews, 300000);
+
+        // ========== KOMENTAR FIREBASE (MODULE) ==========
+    </script>
+
+    <!-- ===== KOMENTAR FIREBASE (MODULE) ===== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCL6gjrP9hJdWrdNwGgWh0fUrNhLcTJR0",
+            authDomain: "caryz-space.firebaseapp.com",
+            databaseURL: "https://caryz-space-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "caryz-space",
+            storageBucket: "caryz-space.firebasestorage.app",
+            messagingSenderId: "1071335666845",
+            appId: "1:1071335666845:web:360d654fd8bea99ad79074",
+            measurementId: "G-W46210T9KJ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            const name = document.getElementById('commentName').value;
+            const text = document.getElementById('commentText').value;
+            if (name && text) {
+                push(ref(db, 'comments'), { name, text, timestamp: Date.now() });
+                document.getElementById('commentName').value = '';
+                document.getElementById('commentText').value = '';
+            }
+        });
+
+        const commentsRef = ref(db, 'comments');
+        onValue(commentsRef, (snapshot) => {
+            const data = snapshot.val();
+            const list = document.getElementById('commentsList');
+            list.innerHTML = '';
+            if (data) {
+                for (let id in data) {
+                    const c = data[id];
+                    let time = "Baru saja";
+                    if (c.timestamp) {
+                        const d = new Date(c.timestamp);
+                        time = d.toLocaleDateString('id-ID', {
+                            weekday: 'short',
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) + " WIB";
+                    }
+                    list.innerHTML += `
+                            <div class="comment-item">
+                                <div class="comment-item-header">
+                                    <span class="comment-item-name">${c.name}</span>
+                                    <span class="comment-item-time">${time}</span>
+                                </div>
+                                <div class="comment-item-text">${c.text}</div>
+                            </div>
+                        `;
+                }
+            } else {
+                list.innerHTML = '<p style="font-size:14px; color:#ccc;">Belum ada Ulasan.</p>';
+            }
+        });
+    </script>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const load = document.createElement("div");
+            load.className = "loading-screen";
+            load.style.animation = "none";
+            load.style.transition = "opacity 0.8s ease, visibility 0.8s ease";
+
+            load.innerHTML = `
+                    <div class="loading-content" id="loadingContent">
+                        <img src="https://cdn.phototourl.com/free/2026-06-29-2e05baa3-1848-4d64-ada6-91c08a3beafe.png" alt="loading" />
+                        <div class="loading-text">
+                            BOOTING SYSTEM<span class="loading-dots" id="loadingDots"></span>
+                        </div>
+                    </div>
+                `;
+            document.body.appendChild(load);
+
+            setTimeout(() => {
+                const content = document.getElementById("loadingContent");
+                if (content) {
+                    content.style.opacity = "0.95";
+                    content.style.transform = "scale(1)";
+                }
+            }, 100);
+
+            let dotCount = 0;
+            const dotsInterval = setInterval(() => {
+                const dotsEl = document.getElementById("loadingDots");
+                if (dotsEl) {
+                    dotCount = (dotCount + 1) % 4;
+                    dotsEl.innerHTML = ".".repeat(dotCount);
+                } else {
+                    clearInterval(dotsInterval);
+                }
+            }, 350);
+
+            setTimeout(() => {
+                load.style.opacity = "0";
+                load.style.visibility = "hidden";
+                clearInterval(dotsInterval);
+            }, 3000);
+        });
+    </script>
+
+    <!-- ========== PARALLAX GLOW ========== -->
+    <script>
+        document.addEventListener("mousemove", function(e) {
+            document.querySelectorAll(".glow").forEach((g, i) => {
+                g.style.transform = "translate(" + (e.clientX / (40 + i * 10)) + "px, " + (e.clientY / (40 +
+                    i * 10)) + "px)";
+            });
+        });
+    </script>
+</body>
+</html>
